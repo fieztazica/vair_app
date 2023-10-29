@@ -8,6 +8,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const _logoAsset = 'img/vair_logo.png';
   int selectedIndex = 0;
 
   static const List<Widget> tabs = <Widget>[
@@ -69,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIndex = index;
             });
           },
-          indicatorColor: Colors.amber[800],
           selectedIndex: selectedIndex,
           destinations: const <Widget>[
             NavigationDestination(
@@ -90,7 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         appBar: AppBar(
-          title: const Text('Vair'),
+          title: SizedBox(
+            height: 32,
+            child: Image.asset(
+              _logoAsset,
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+          ),
         ),
         body: tabs.elementAt(selectedIndex));
   }
