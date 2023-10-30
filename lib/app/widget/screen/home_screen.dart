@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-
-class Product {
-  final String name;
-  final String description;
-  final double price;
-
-  Product(this.name, this.description, this.price);
-}
+import 'package:vair_app/app/widget/card/product_card.dart';
+import 'package:vair_app/shared/list_title.dart';
 
 List<Product> products = [
   Product('Product 1', 'Description for Product 1', 10.99),
@@ -21,64 +15,77 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
+    return ListView(
       children: [
-        Container(
+        const ListTitle(title: "Featured & Recommended"),
+        SizedBox(
             height: 200,
-            child: Column(
-              children: [
-                const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        'Featured & Recommended',
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: List.generate(products.length, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, '/details'); // Navigate to details screen
+                    },
+                    child: ProductCard(
+                      name: products[index].name,
+                      description: products[index].description,
+                      price: products[index].price,
+                    ),
+                  );
+                })))),
+        const ListTitle(title: "Suggested"),
+        SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: List.generate(products.length, (index) {
+                  return ProductCard(
+                    name: products[index].name,
+                    description: products[index].description,
+                    price: products[index].price,
+                  );
+                })))),
+        const ListTitle(title: "Actions"),
+        SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: List.generate(products.length, (index) {
+                  return Card(
+                    margin: const EdgeInsets.all(10),
+                    child: SizedBox(
+                      width: 150,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Icon(Icons.shopping_cart),
+                          Text(products[index].name),
+                          Text(products[index].description),
+                          Text('\$${products[index].price.toStringAsFixed(2)}'),
+                        ],
                       ),
-                    )
-                  ],
-                ),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(products.length, (index) {
-                      return Card(
-                        margin: const EdgeInsets.all(10),
-                        child: Container(
-                          width: 150,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(Icons.shopping_cart),
-                              Text(products[index].name),
-                              Text(products[index].description),
-                              Text(
-                                  '\$${products[index].price.toStringAsFixed(2)}'),
-                            ],
-                          ),
-                        ),
-                      );
-                    }))),
-              ],
-            )),
-        Expanded(
-          child: ListView.builder(
-            itemCount: products.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                margin: const EdgeInsets.all(10),
-                child: ListTile(
-                  leading: const Icon(Icons.shopping_cart),
-                  title: Text(products[index].name),
-                  subtitle: Text(products[index].description),
-                  trailing:
-                      Text('\$${products[index].price.toStringAsFixed(2)}'),
-                ),
-              );
-            },
-          ),
-        )
+                    ),
+                  );
+                })))),
+        const ListTitle(title: "Indie games"),
+        SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: List.generate(products.length, (index) {
+                  return ProductCard(
+                    name: products[index].name,
+                    description: products[index].description,
+                    price: products[index].price,
+                  );
+                })))),
       ],
-    ));
+    );
   }
 }
