@@ -1,20 +1,24 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:vair_app/app/widget/screen/account_screen.dart';
-import 'package:vair_app/app/widget/screen/home_screen.dart';
-import 'package:vair_app/app/widget/screen/library_screen.dart';
-import 'package:vair_app/app/widget/screen/notification_screen.dart';
-import 'package:vair_app/app/widget/screen/signin_screen.dart';
+import 'package:vair_app/app/screen/account_screen.dart';
+import 'package:vair_app/app/screen/home_screen.dart';
+import 'package:vair_app/app/screen/library_screen.dart';
+import 'package:vair_app/app/screen/notification_screen.dart';
+import 'package:vair_app/app/screen/search_screen.dart';
+import 'package:vair_app/app/screen/signin_screen.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+class NavBarScreen extends StatefulWidget {
+  const NavBarScreen({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<NavBarScreen> createState() => _NavBarScreenState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _NavBarScreenState extends State<NavBarScreen> {
   static const _logoAsset = 'assets/img/vair_logo.png';
   int selectedIndex = 0;
+  late AuthUser _authUser;
+  bool isSignedIn = false;
 
   static const List<Widget> tabs = <Widget>[
     HomeScreen(),
@@ -26,6 +30,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  Future<AuthUser> getCurrentUser() async {
+    final user = await Amplify.Auth.getCurrentUser();
+    setState(() {
+      _authUser = user;
+    });
+    return user;
+  }
+
+  Future<bool> isUserSignedIn() async {
+    final result = await Amplify.Auth.fetchAuthSession();
+    setState(() {
+      isSignedIn = result.isSignedIn;
+    });
+    return result.isSignedIn;
   }
 
   @override
@@ -102,6 +122,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
+                Icons.search,
+                size: 24,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchScreen()));
+              },
+            ),
+            IconButton(
+              icon: const Icon(
                 Icons.notifications,
                 size: 24,
               ),
@@ -120,8 +150,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   size: 24,
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SigninScreen()));
+                  if (isSignedIn) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SigninScreen()));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AccountScreen()));
+                  }
                 },
               ),
             )

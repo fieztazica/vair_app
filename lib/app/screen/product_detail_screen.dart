@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vair_app/app/widget/card/product_card.dart';
+import 'package:vair_app/app/widget/product_card.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});

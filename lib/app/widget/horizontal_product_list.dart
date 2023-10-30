@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:vair_app/app/widget/product_card.dart';
+import 'package:vair_app/app/widget/list_title.dart';
+
+class HorizontalProductList extends StatelessWidget {
+  final String title;
+  final List<Product> items;
+
+  const HorizontalProductList(
+      {super.key, required this.items, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTitle(title: title),
+        SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: List.generate(items.length, (index) {
+                  return ProductCard(
+                    name: items[index].name,
+                    description: items[index].description,
+                    price: items[index].price,
+                  );
+                }))))
+      ],
+    );
+  }
+}
