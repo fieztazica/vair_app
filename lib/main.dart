@@ -3,6 +3,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:vair_app/app/widget/bottom_navbar.dart';
+import 'package:vair_app/app/widget/screen/product_detail_screen.dart';
+import 'package:vair_app/app/widget/screen/splash_screen.dart';
 
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
@@ -51,7 +53,10 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: const BottomNavBar(),
+      home: BottomNavBar(),
+      routes: {
+        '/details': (context) => ProductDetailScreen(),
+      },
     );
   }
 }

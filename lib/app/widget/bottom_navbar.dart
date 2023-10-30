@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vair_app/app/widget/screen/account_screen.dart';
 import 'package:vair_app/app/widget/screen/home_screen.dart';
 import 'package:vair_app/app/widget/screen/library_screen.dart';
+import 'package:vair_app/app/widget/screen/notification_screen.dart';
+import 'package:vair_app/app/widget/screen/signin_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -11,7 +13,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  static const _logoAsset = 'img/vair_logo.png';
+  static const _logoAsset = 'assets/img/vair_logo.png';
   int selectedIndex = 0;
 
   static const List<Widget> tabs = <Widget>[
@@ -19,6 +21,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
     LibraryScreen(),
     AccountScreen(),
   ];
+
+  onTabTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   @override
   void initState() {
@@ -62,11 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
+          onDestinationSelected: onTabTapped,
           selectedIndex: selectedIndex,
           destinations: const <Widget>[
             NavigationDestination(
@@ -95,6 +99,33 @@ class _BottomNavBarState extends State<BottomNavBar> {
               height: 32,
             ),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.notifications,
+                size: 24,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationScreen()));
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.account_circle,
+                  size: 24,
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SigninScreen()));
+                },
+              ),
+            )
+          ],
         ),
         body: tabs.elementAt(selectedIndex));
   }

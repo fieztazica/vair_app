@@ -5,8 +5,6 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: ListView(children: const [Text("Account")])),
-    );
+    return Container();
   }
 }
