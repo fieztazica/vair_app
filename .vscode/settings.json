@@ -5,6 +5,7 @@
         "codegen",
         "cupertino",
         "Getx",
-        "Schyler"
+        "Schyler",
+        "Signup"
     ]
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/app/helper/app_snackbar.dart';
 import 'package:vair_app/app/screen/account_screen.dart';
 import 'package:vair_app/app/screen/home_screen.dart';
 import 'package:vair_app/app/screen/library_screen.dart';
 import 'package:vair_app/app/screen/notification_screen.dart';
 import 'package:vair_app/app/screen/search_screen.dart';
 import 'package:vair_app/app/screen/signin_screen.dart';
+import 'package:vair_app/app/widget/account_dialog.dart';
 import 'package:vair_app/controller/auth_controller.dart';
 
 class TabController extends GetxController {
@@ -28,41 +30,34 @@ class NavBarScreen extends StatelessWidget {
     AccountScreen(),
   ];
 
-  void init() async {
-    try {
-      await _authController.getCurrentUser();
-      await _authController.fetchIsUserSignedIn();
-    } catch (e) {
-      Get.snackbar('Vair', "Sign in for full features.");
-    }
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
-    init();
-    return Obx(() => Scaffold(
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: _tabController.onTabTapped,
-          selectedIndex: _tabController.selectedTab.value,
-          destinations: <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.library_books),
-              icon: Icon(Icons.library_books_outlined),
-              label: 'Library',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.people),
-              icon: Icon(Icons.people_outlined),
-              label:
-                  _authController.isUserSignedIn.value ? 'Account' : 'Sign In',
-            ),
-          ],
-        ),
+    return Scaffold(
+        bottomNavigationBar: Obx(() => NavigationBar(
+              onDestinationSelected: _tabController.onTabTapped,
+              selectedIndex: _tabController.selectedTab.value,
+              destinations: <Widget>[
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.home),
+                  icon: Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.library_books),
+                  icon: Icon(Icons.library_books_outlined),
+                  label: 'Library',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.people),
+                  icon: Icon(Icons.people_outlined),
+                  label: _authController.isUserSignedIn.value
+                      ? 'Account'
+                      : 'Sign In',
+                ),
+              ],
+            )),
         appBar: AppBar(
           title: SizedBox(
             height: 32,
@@ -100,15 +95,16 @@ class NavBarScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (_authController.isUserSignedIn.isFalse) {
-                    Get.to(() => SigninScreen());
+                    Get.toNamed('/signin');
                   } else {
-                    Get.to(() => AccountScreen());
+                    // Get.to(() => AccountScreen());
+                    Get.dialog(AccountDialog());
                   }
                 },
               ),
             )
           ],
         ),
-        body: tabs.elementAt(_tabController.selectedTab.value)));
+        body: Obx(() => tabs.elementAt(_tabController.selectedTab.value)));
   }
 }
