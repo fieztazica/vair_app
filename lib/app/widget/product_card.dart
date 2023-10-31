@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Product {
   final String name;
@@ -23,9 +24,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/details',
-            arguments: Product(
-                name, description, price)); // Navigate to details screen
+        Get.toNamed('/detail',
+            parameters: {"id": name}); // Navigate to details screen
       },
       child: Card(
         margin: const EdgeInsets.all(10),

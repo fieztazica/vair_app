@@ -1,98 +1,50 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vair_app/app/screen/account_screen.dart';
 import 'package:vair_app/app/screen/home_screen.dart';
 import 'package:vair_app/app/screen/library_screen.dart';
 import 'package:vair_app/app/screen/notification_screen.dart';
 import 'package:vair_app/app/screen/search_screen.dart';
 import 'package:vair_app/app/screen/signin_screen.dart';
+import 'package:vair_app/controller/auth_controller.dart';
 
-class NavBarScreen extends StatefulWidget {
-  const NavBarScreen({super.key});
+class TabController extends GetxController {
+  var selectedTab = 0.obs;
 
-  @override
-  State<NavBarScreen> createState() => _NavBarScreenState();
+  void onTabTapped(int index) {
+    selectedTab.value = index;
+    update();
+  }
 }
 
-class _NavBarScreenState extends State<NavBarScreen> {
-  static const _logoAsset = 'assets/img/vair_logo.png';
-  int selectedIndex = 0;
-  late AuthUser _authUser;
-  bool isSignedIn = false;
+class NavBarScreen extends StatelessWidget {
+  final _logoAssetPath = 'assets/img/vair_logo.png';
+  final AuthController _authController = Get.put(AuthController());
+  final TabController _tabController = Get.put(TabController());
 
-  static const List<Widget> tabs = <Widget>[
+  List<Widget> tabs = <Widget>[
     HomeScreen(),
     LibraryScreen(),
     AccountScreen(),
   ];
 
-  onTabTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  Future<AuthUser> getCurrentUser() async {
-    final user = await Amplify.Auth.getCurrentUser();
-    setState(() {
-      _authUser = user;
-    });
-    return user;
-  }
-
-  Future<bool> isUserSignedIn() async {
-    final result = await Amplify.Auth.fetchAuthSession();
-    setState(() {
-      isSignedIn = result.isSignedIn;
-    });
-    return result.isSignedIn;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Widget _buildRow({
-    required String title,
-    required String description,
-    required String amount,
-    TextStyle? style,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: style,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            description,
-            textAlign: TextAlign.center,
-            style: style,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            amount,
-            textAlign: TextAlign.center,
-            style: style,
-          ),
-        ),
-      ],
-    );
+  void init() async {
+    try {
+      await _authController.getCurrentUser();
+      await _authController.fetchIsUserSignedIn();
+    } catch (e) {
+      Get.snackbar('Vair', "Sign in for full features.");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    init();
+    return Obx(() => Scaffold(
         bottomNavigationBar: NavigationBar(
-          onDestinationSelected: onTabTapped,
-          selectedIndex: selectedIndex,
-          destinations: const <Widget>[
+          onDestinationSelected: _tabController.onTabTapped,
+          selectedIndex: _tabController.selectedTab.value,
+          destinations: <Widget>[
             NavigationDestination(
               selectedIcon: Icon(Icons.home),
               icon: Icon(Icons.home_outlined),
@@ -106,7 +58,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
             NavigationDestination(
               selectedIcon: Icon(Icons.people),
               icon: Icon(Icons.people_outlined),
-              label: 'Account',
+              label:
+                  _authController.isUserSignedIn.value ? 'Account' : 'Sign In',
             ),
           ],
         ),
@@ -114,7 +67,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
           title: SizedBox(
             height: 32,
             child: Image.asset(
-              _logoAsset,
+              _logoAssetPath,
               fit: BoxFit.contain,
               height: 32,
             ),
@@ -126,8 +79,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                 size: 24,
               ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchScreen()));
+                Get.toNamed('/search');
               },
             ),
             IconButton(
@@ -136,10 +88,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                 size: 24,
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NotificationScreen()));
+                Get.to(() => NotificationScreen());
               },
             ),
             Padding(
@@ -150,22 +99,16 @@ class _NavBarScreenState extends State<NavBarScreen> {
                   size: 24,
                 ),
                 onPressed: () {
-                  if (isSignedIn) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SigninScreen()));
+                  if (_authController.isUserSignedIn.isFalse) {
+                    Get.to(() => SigninScreen());
                   } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AccountScreen()));
+                    Get.to(() => AccountScreen());
                   }
                 },
               ),
             )
           ],
         ),
-        body: tabs.elementAt(selectedIndex));
+        body: tabs.elementAt(_tabController.selectedTab.value)));
   }
 }

@@ -4,6 +4,7 @@
         "amplifyconfiguration",
         "codegen",
         "cupertino",
+        "Getx",
         "Schyler"
     ]
 }
