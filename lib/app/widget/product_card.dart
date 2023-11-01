@@ -50,16 +50,16 @@ class ProductCard extends StatelessWidget {
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error)),
               ),
-              SizedBox(
+              Container(
                 width: 300,
                 height: 60,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -77,26 +77,29 @@ class ProductCard extends StatelessWidget {
                                       const Icon(Icons.error)),
                             ),
                           ),
-                          Padding(
+                          Container(
+                            width: 120,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(name,
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold)),
                           )
                         ],
                       ),
-                      MaterialButton(
-                          elevation: 4,
-                          color: Colors.teal[100],
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
+                    ),
+                    Container(
+                      width: 110,
+                      child: OutlinedButton(
                           onPressed: _onTap,
                           child: price > 0
-                              ? Text('VND ${price.toStringAsFixed(2)}')
+                              ? Text(
+                                  'VND ${price.toStringAsFixed(2)}',
+                                  overflow: TextOverflow.ellipsis,
+                                )
                               : const Text('Free')),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               )
             ],
