@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/app/screen/signin_screen.dart';
 import 'package:vair_app/controller/auth_controller.dart';
 
 class SignupScreenController extends GetxController {

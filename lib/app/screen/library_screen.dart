@@ -1,22 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vair_app/app/widget/product_card.dart';
+import 'package:vair_app/models/Product.dart';
+import 'package:vair_app/shared/const_data.dart';
 
 List<Product> products = [
-  Product('Product 1', 'Description for Product 1', 10.99),
-  Product('Product 2', 'Description for Product 2', 15.99),
-  Product('Product 3', 'Description for Product 3', 8.99),
-  Product('Product 4', 'Description for Product 4', 7.99),
-  Product('Product 5', 'Description for Product 5', 1.99),
-  Product('Product 1', 'Description for Product 1', 10.99),
-  Product('Product 2', 'Description for Product 2', 15.99),
-  Product('Product 3', 'Description for Product 3', 8.99),
-  Product('Product 4', 'Description for Product 4', 7.99),
-  Product('Product 5', 'Description for Product 5', 1.99),
-  Product('Product 1', 'Description for Product 1', 10.99),
-  Product('Product 2', 'Description for Product 2', 15.99),
-  Product('Product 3', 'Description for Product 3', 8.99),
-  Product('Product 4', 'Description for Product 4', 7.99),
-  Product('Product 5', 'Description for Product 5', 1.99),
+  ...exampleProducts,
+  ...exampleProducts,
+  ...exampleProducts
 ];
 
 class LibraryScreen extends StatelessWidget {
@@ -26,22 +16,50 @@ class LibraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: products.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 5.0,
+        crossAxisSpacing: 5.0,
         childAspectRatio: 1.0,
       ),
       itemBuilder: (BuildContext context, int index) {
         return GridTile(
-          child: Container(
-            color: Colors.blue,
-            child: Center(
-              child: Text(
-                'Bought ${products[index].name}',
-                style: TextStyle(color: Colors.white, fontSize: 20.0),
-              ),
+          header: Container(
+            padding: const EdgeInsets.all(5),
+            color: Colors.teal[900]?.withOpacity(0.8),
+            child: Text(
+              products[index].name,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white),
             ),
+          ),
+          footer: Container(
+            padding: const EdgeInsets.all(5),
+            color: Colors.teal[900]?.withOpacity(0.8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "Installed",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.white),
+                )
+              ],
+            ),
+          ),
+          child: Container(
+            color: Colors.teal[300],
+            child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: products[index].logoUrl,
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error)),
           ),
         );
       },

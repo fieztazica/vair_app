@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/app/screen/home_screen.dart';
-import 'package:vair_app/app/widget/product_card.dart';
+import 'package:vair_app/models/Product.dart';
+import 'package:vair_app/shared/const_data.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -9,7 +9,7 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Product prod =
-        products.where((element) => element.name == Get.parameters['id']).first;
+        exampleProducts.where((element) => element.name == Get.parameters['id']).first;
 
     return Scaffold(
       appBar: AppBar(

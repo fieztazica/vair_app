@@ -1,4 +1,3 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,7 +51,7 @@ class ConfirmScreen extends StatelessWidget {
             children: [
               Card(
                 elevation: 12,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 margin: const EdgeInsets.all(30),
@@ -60,13 +59,13 @@ class ConfirmScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextField(
                         controller: controller.codeController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           filled: true,
                           contentPadding:
-                              const EdgeInsets.symmetric(vertical: 4.0),
+                              EdgeInsets.symmetric(vertical: 4.0),
                           prefixIcon: Icon(Icons.lock),
                           labelText: 'Enter confirmation code',
                           border: OutlineInputBorder(
@@ -74,7 +73,7 @@ class ConfirmScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Obx(() => MaterialButton(
                             onPressed: controller.isEnabled.value
                                 ? () {
@@ -87,11 +86,11 @@ class ConfirmScreen extends StatelessWidget {
                             elevation: 4,
                             color: Theme.of(context).primaryColor,
                             disabledColor: Colors.deepPurple.shade200,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
-                            child: Text(
+                            child: const Text(
                               'VERIFY',
                               style: TextStyle(
                                 color: Colors.white,
@@ -103,7 +102,7 @@ class ConfirmScreen extends StatelessWidget {
                         onPressed: () {
                           _resendCode(username);
                         },
-                        child: Text(
+                        child: const Text(
                           'Resend code',
                           style: TextStyle(color: Colors.grey),
                         ),

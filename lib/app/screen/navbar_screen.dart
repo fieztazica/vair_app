@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/app/helper/app_snackbar.dart';
 import 'package:vair_app/app/screen/account_screen.dart';
 import 'package:vair_app/app/screen/home_screen.dart';
 import 'package:vair_app/app/screen/library_screen.dart';
 import 'package:vair_app/app/screen/notification_screen.dart';
-import 'package:vair_app/app/screen/search_screen.dart';
-import 'package:vair_app/app/screen/signin_screen.dart';
 import 'package:vair_app/app/widget/account_dialog.dart';
 import 'package:vair_app/controller/auth_controller.dart';
 
@@ -19,18 +16,19 @@ class TabController extends GetxController {
   }
 }
 
+// ignore: must_be_immutable
 class NavBarScreen extends StatelessWidget {
   final _logoAssetPath = 'assets/img/vair_logo.png';
   final AuthController _authController = Get.put(AuthController());
   final TabController _tabController = Get.put(TabController());
 
   List<Widget> tabs = <Widget>[
-    HomeScreen(),
-    LibraryScreen(),
+    const HomeScreen(),
+    const LibraryScreen(),
     AccountScreen(),
   ];
 
- 
+  NavBarScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +37,19 @@ class NavBarScreen extends StatelessWidget {
               onDestinationSelected: _tabController.onTabTapped,
               selectedIndex: _tabController.selectedTab.value,
               destinations: <Widget>[
-                NavigationDestination(
+                const NavigationDestination(
                   selectedIcon: Icon(Icons.home),
                   icon: Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
-                NavigationDestination(
+                const NavigationDestination(
                   selectedIcon: Icon(Icons.library_books),
                   icon: Icon(Icons.library_books_outlined),
                   label: 'Library',
                 ),
                 NavigationDestination(
-                  selectedIcon: Icon(Icons.people),
-                  icon: Icon(Icons.people_outlined),
+                  selectedIcon: const Icon(Icons.people),
+                  icon: const Icon(Icons.people_outlined),
                   label: _authController.isUserSignedIn.value
                       ? 'Account'
                       : 'Sign In',
@@ -83,7 +81,7 @@ class NavBarScreen extends StatelessWidget {
                 size: 24,
               ),
               onPressed: () {
-                Get.to(() => NotificationScreen());
+                Get.to(() => const NotificationScreen());
               },
             ),
             Padding(

@@ -1,7 +1,4 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:vair_app/app/screen/navbar_screen.dart';
-import 'package:vair_app/app/screen/signin_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

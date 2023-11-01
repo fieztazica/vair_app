@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vair_app/app/widget/product_card.dart';
 import 'package:vair_app/app/widget/list_title.dart';
+import 'package:vair_app/models/Product.dart';
 
 class HorizontalProductList extends StatelessWidget {
   final String title;
@@ -24,6 +25,8 @@ class HorizontalProductList extends StatelessWidget {
                     name: items[index].name,
                     description: items[index].description,
                     price: items[index].price,
+                    logoUrl: items[index].logoUrl,
+                    bannerUrl: items[index].bannerUrls.first,
                   );
                 }))))
       ],

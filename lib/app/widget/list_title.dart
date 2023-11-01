@@ -10,10 +10,13 @@ class ListTitle extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.only(top: 10, left: 10),
           child: Text(
             title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         )
       ],
