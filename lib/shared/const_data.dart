@@ -34,7 +34,8 @@ List<Product> exampleProducts = [
       price: 1.99),
   Product(
       id: '4',
-      logoUrl: 'https://thorium.rocks/imgs/thorium.svg',
+      logoUrl:
+          'https://cdn.discordapp.com/attachments/854996766154817559/1169208694576259082/thorium-the-great-browser-v0-nh81ug88ns0a1.png',
       bannerUrls: [
         'https://img.freepik.com/premium-vector/flower-mountain-landscape-background_147887-336.jpg'
       ],
