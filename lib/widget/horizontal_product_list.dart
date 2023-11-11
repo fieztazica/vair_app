@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vair_app/app/widget/product_card.dart';
-import 'package:vair_app/app/widget/list_title.dart';
-import 'package:vair_app/models/Product.dart';
+import 'package:vair_app/widget/product_card.dart';
+import 'package:vair_app/widget/list_title.dart';
+import 'package:vair_app/models/ProductModel.dart';
 
 class HorizontalProductList extends StatelessWidget {
   final String title;

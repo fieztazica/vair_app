@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/app/screen/account_screen.dart';
-import 'package:vair_app/app/screen/home_screen.dart';
-import 'package:vair_app/app/screen/library_screen.dart';
-import 'package:vair_app/app/screen/notification_screen.dart';
-import 'package:vair_app/app/widget/account_dialog.dart';
+import 'package:vair_app/screen/account_screen.dart';
+import 'package:vair_app/pages/home/presentation/views/home_view.dart';
+import 'package:vair_app/screen/library_screen.dart';
+import 'package:vair_app/screen/notification_screen.dart';
+import 'package:vair_app/widget/account_dialog.dart';
 import 'package:vair_app/controller/auth_controller.dart';
 
 class TabController extends GetxController {

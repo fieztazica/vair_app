@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vair_app/models/Product.dart';
+import 'package:vair_app/models/ProductModel.dart';
 import 'package:vair_app/shared/const_data.dart';
 
 List<Product> products = [

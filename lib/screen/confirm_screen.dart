@@ -1,7 +1,6 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/app/helper/app_snackbar.dart';
+import 'package:vair_app/helper/app_snackbar.dart';
 import 'package:vair_app/controller/auth_controller.dart';
 
 class ConfirmScreenController extends GetxController {
@@ -28,15 +27,15 @@ class ConfirmScreen extends StatelessWidget {
 
   ConfirmScreen({Key? key}) : super(key: key);
 
-  void _resendCode(String username) async {
-    try {
-      await Amplify.Auth.resendSignUpCode(username: username);
+  // void _resendCode(String username) async {
+  //   try {
+  //     await Amplify.Auth.resendSignUpCode(username: username);
 
-      Snackbar.info('Confirmation code resent. Check your email');
-    } on AuthException catch (e) {
-      Snackbar.error(e.message);
-    }
-  }
+  //     Snackbar.info('Confirmation code resent. Check your email');
+  //   } on AuthException catch (e) {
+  //     Snackbar.error(e.message);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +99,7 @@ class ConfirmScreen extends StatelessWidget {
                           )),
                       MaterialButton(
                         onPressed: () {
-                          _resendCode(username);
+                          // _resendCode(username);
                         },
                         child: const Text(
                           'Resend code',

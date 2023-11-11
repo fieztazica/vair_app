@@ -1,4 +1,3 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controller/auth_controller.dart';
@@ -18,8 +17,8 @@ class GlobalMiddleware extends GetMiddleware {
 
   @override
   GetPage? onPageCalled(GetPage? page) {
-    safePrint('>>> Page ${page?.name} called');
-    safePrint('>>> User ${authController.authUser.value.username} logged');
+    print('>>> Page ${page?.name} called');
+    print('>>> User ${authController.authUser.value.username} logged');
     return authController.authUser.value.username != null
         ? page
             ?.copy(parameters: {'user': authController.authUser.value.username})

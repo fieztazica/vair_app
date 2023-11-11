@@ -1,4 +1,4 @@
-import 'package:vair_app/models/Product.dart';
+import 'package:vair_app/models/ProductModel.dart';
 
 List<Product> exampleProducts = [
   Product(
