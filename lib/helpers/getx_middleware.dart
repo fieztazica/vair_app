@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/controller/auth_controller.dart';
+import 'package:vair_app/controllers/auth_controller.dart';
 
 class GlobalMiddleware extends GetMiddleware {
   final authController = Get.find<AuthController>();

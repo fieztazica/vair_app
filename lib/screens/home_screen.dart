@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vair_app/widget/horizontal_product_list.dart';
 import 'package:vair_app/shared/const_data.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

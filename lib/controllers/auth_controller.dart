@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/helper/app_snackbar.dart';
-import 'package:vair_app/screen/confirm_screen.dart';
-import 'package:vair_app/screen/navbar_screen.dart';
+import 'package:vair_app/helpers/app_snackbar.dart';
+import 'package:vair_app/screens/auth/confirm_screen.dart';
+import 'package:vair_app/screens/navbar_screen.dart';
 import 'package:vair_app/models/UserModel.dart';
 
 class AuthController extends GetxController {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/controller/auth_controller.dart';
+import 'package:vair_app/controllers/auth_controller.dart';
 
 class SigninScreenController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey();

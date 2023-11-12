@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
-
-import '../pages/home/bindings/home_binding.dart';
-import '../pages/home/presentation/views/country_view.dart';
-import '../pages/home/presentation/views/details_view.dart';
-import '../pages/home/presentation/views/home_view.dart';
+import 'package:vair_app/screens/account_screen.dart';
+import 'package:vair_app/screens/auth/signin_screen.dart';
+import 'package:vair_app/screens/auth/signup_screen.dart';
+import 'package:vair_app/screens/home_screen.dart';
+import 'package:vair_app/screens/library_screen.dart';
+import 'package:vair_app/screens/product_detail_screen.dart';
+import 'package:vair_app/screens/search_screen.dart';
 
 part 'app_routes.dart';
 
@@ -14,18 +16,28 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
+      page: () => const HomeScreen(),
       children: [
         GetPage(
-          name: Routes.COUNTRY,
-          page: () => const CountryView(),
-          children: [
-            GetPage(
-              name: Routes.DETAILS,
-              page: () => const DetailsView(),
-            ),
-          ],
+          name: Routes.SEARCH,
+          page: () => const SearchScreen(),
+        ),
+        GetPage(name: Routes.LIBRARY, page: () => const LibraryScreen()),
+        GetPage(
+          name: Routes.DETAILS,
+          page: () => const ProductDetailScreen(),
+        ),
+        GetPage(
+          name: Routes.ACCOUNT,
+          page: () => AccountScreen(),
+        ),
+        GetPage(
+          name: Routes.SIGNIN,
+          page: () => SigninScreen(),
+        ),
+        GetPage(
+          name: Routes.SIGNUP,
+          page: () => SignupScreen(),
         ),
       ],
     ),

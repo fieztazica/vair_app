@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/helper/app_snackbar.dart';
-import 'package:vair_app/controller/auth_controller.dart';
+import 'package:vair_app/helpers/app_snackbar.dart';
+import 'package:vair_app/controllers/auth_controller.dart';
 
 class ConfirmScreenController extends GetxController {
   final codeController = TextEditingController();

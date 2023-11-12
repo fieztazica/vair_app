@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/screen/account_screen.dart';
-import 'package:vair_app/pages/home/presentation/views/home_view.dart';
-import 'package:vair_app/screen/library_screen.dart';
-import 'package:vair_app/screen/notification_screen.dart';
+import 'package:vair_app/screens/account_screen.dart';
+import 'package:vair_app/screens/home_screen.dart';
+import 'package:vair_app/screens/library_screen.dart';
+import 'package:vair_app/screens/notification_screen.dart';
 import 'package:vair_app/widget/account_dialog.dart';
-import 'package:vair_app/controller/auth_controller.dart';
+import 'package:vair_app/controllers/auth_controller.dart';
 
 class TabController extends GetxController {
   var selectedTab = 0.obs;
