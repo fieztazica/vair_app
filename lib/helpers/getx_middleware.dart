@@ -15,15 +15,15 @@ class GlobalMiddleware extends GetMiddleware {
         : const RouteSettings(name: '/signin');
   }
 
-  @override
-  GetPage? onPageCalled(GetPage? page) {
-    print('>>> Page ${page?.name} called');
-    print('>>> User ${authController.authUser.value.username} logged');
-    return authController.authUser.value.username != null
-        ? page
-            ?.copy(parameters: {'user': authController.authUser.value.username})
-        : page;
-  }
+  // @override
+  // GetPage? onPageCalled(GetPage? page) {
+  //   print('>>> Page ${page?.name} called');
+  //   print('>>> User ${authController.authUser.value.username} logged');
+  //   return authController.authUser.value.username != null
+  //       ? page
+  //           ?.copy(parameters: {'user': authController.authUser.value.username})
+  //       : page;
+  // }
 
   @override
   List<Bindings>? onBindingsStart(List<Bindings>? bindings) {

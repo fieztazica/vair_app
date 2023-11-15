@@ -76,10 +76,10 @@ class ConfirmScreen extends StatelessWidget {
                       Obx(() => MaterialButton(
                             onPressed: controller.isEnabled.value
                                 ? () {
-                                    authController.confirmUser(
-                                        username: username,
-                                        confirmationCode:
-                                            controller.codeController.text);
+                                    // authController.confirmUser(
+                                    //     username: username,
+                                    //     confirmationCode:
+                                    //         controller.codeController.text);
                                   }
                                 : null,
                             elevation: 4,

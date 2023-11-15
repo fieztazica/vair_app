@@ -8,7 +8,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Product prod =
+    ProductModel prod =
         exampleProducts.where((element) => element.name == Get.parameters['id']).first;
 
     return Scaffold(

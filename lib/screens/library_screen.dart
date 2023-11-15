@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vair_app/models/ProductModel.dart';
 import 'package:vair_app/shared/const_data.dart';
 
-List<Product> products = [
+List<ProductModel> products = [
   ...exampleProducts,
   ...exampleProducts,
   ...exampleProducts
@@ -56,7 +56,7 @@ class LibraryScreen extends StatelessWidget {
             color: Colors.teal[300],
             child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: products[index].logoUrl,
+                imageUrl: products[index].logo.url,
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error)),

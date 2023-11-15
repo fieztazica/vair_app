@@ -28,7 +28,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Vair",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+          brightness: Brightness.light,
+        ),
+      ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

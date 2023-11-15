@@ -5,7 +5,7 @@ import 'package:vair_app/models/ProductModel.dart';
 
 class HorizontalProductList extends StatelessWidget {
   final String title;
-  final List<Product> items;
+  final List<ProductModel> items;
 
   const HorizontalProductList(
       {super.key, required this.items, required this.title});
@@ -25,8 +25,8 @@ class HorizontalProductList extends StatelessWidget {
                     name: items[index].name,
                     description: items[index].description,
                     price: items[index].price,
-                    logoUrl: items[index].logoUrl,
-                    bannerUrl: items[index].bannerUrls.first,
+                    logoUrl: items[index].logo.url,
+                    bannerUrl: items[index].banners.first.url,
                   );
                 }))))
       ],

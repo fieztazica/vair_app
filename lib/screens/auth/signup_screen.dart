@@ -185,15 +185,15 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if (controller.formKey.currentState?.validate() ??
-                          false) {
-                        authController.signUpUser(
-                            username: controller.controllerUsername.text,
-                            password: controller.controllerConFirmPassword.text,
-                            email: controller.controllerEmail.text);
+                      // if (controller.formKey.currentState?.validate() ??
+                      //     false) {
+                      //   authController.signUpUser(
+                      //       username: controller.controllerUsername.text,
+                      //       password: controller.controllerConFirmPassword.text,
+                      //       email: controller.controllerEmail.text);
 
-                        controller.formKey.currentState?.reset();
-                      }
+                      //   controller.formKey.currentState?.reset();
+                      // }
                     },
                     child: const Text("Register"),
                   ),
