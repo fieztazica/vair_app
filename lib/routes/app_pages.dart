@@ -21,7 +21,7 @@ class AppPages {
     ),
     GetPage(name: Routes.LIBRARY, page: () => const LibraryScreen()),
     GetPage(
-      name: Routes.DETAILS,
+      name: Routes.DETAIL,
       page: () => const ProductDetailScreen(),
     ),
     GetPage(
