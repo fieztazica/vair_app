@@ -16,7 +16,6 @@ class TabController extends GetxController {
   }
 }
 
-// ignore: must_be_immutable
 class NavBarScreen extends StatelessWidget {
   final _logoAssetPath = 'assets/img/vair_logo.png';
   final AuthController _authController = Get.put(AuthController());
