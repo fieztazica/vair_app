@@ -16,8 +16,8 @@ class ProductModel extends BaseModel {
       this.price = 0,
       required this.logo,
       required this.banners,
-      required super.createdAt,
-      required super.updatedAt});
+      super.createdAt,
+      super.updatedAt});
 
   factory ProductModel.fromRawJson(String str) =>
       ProductModel.fromJson(json.decode(str) as Map<String, dynamic>);

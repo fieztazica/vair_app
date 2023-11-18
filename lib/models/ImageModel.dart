@@ -3,39 +3,39 @@ import 'dart:convert';
 import 'package:vair_app/models/MediaModel.dart';
 
 class ImageModel extends MediaModel {
-  final String name;
+  final String? name;
   final String? alternativeText;
   final String? caption;
-  final int width;
-  final int height;
-  final Map<String, ImageFormatModel> formats;
-  final String hash;
-  final String ext;
-  final String mime;
-  final double size;
+  final int? width;
+  final int? height;
+  final Map<String, ImageFormatModel>? formats;
+  final String? hash;
+  final String? ext;
+  final String? mime;
+  final double? size;
   final String url;
-  final String previewUrl;
-  final String provider;
+  final String? previewUrl;
+  final String? provider;
   final String? provider_metadata;
 
   ImageModel(
       {required super.id,
-      required this.name,
-      required this.alternativeText,
-      required this.caption,
-      required this.width,
-      required this.height,
-      required this.formats,
-      required this.hash,
-      required this.ext,
-      required this.mime,
-      required this.size,
+      this.name,
+      this.alternativeText,
+      this.caption,
+      this.width,
+      this.height,
+      this.formats,
+      this.hash,
+      this.ext,
+      this.mime,
+      this.size,
       required this.url,
-      required this.previewUrl,
-      required this.provider,
-      required this.provider_metadata,
-      required super.createdAt,
-      required super.updatedAt});
+      this.previewUrl,
+      this.provider,
+      this.provider_metadata,
+      super.createdAt,
+      super.updatedAt});
 
   factory ImageModel.fromRawJson(String str) =>
       ImageModel.fromJson(json.decode(str) as Map<String, dynamic>);
