@@ -1,6 +1,0 @@
-type BudgetEntry @model @auth(rules: [{ allow: owner }]) {
-    id: ID!
-    title: String!
-    description: String
-    amount: Float!
-}
