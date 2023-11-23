@@ -1,44 +1,36 @@
-import 'dart:convert';
-
-class Role {
+class Developer {
   int? id;
   String? name;
-  String? description;
-  String? type;
+  String? email;
   String? createdAt;
   String? updatedAt;
-  dynamic permissions;
+  String? publishedAt;
 
-  Role(
+  Developer(
       {this.id,
       this.name,
-      this.description,
-      this.type,
+      this.email,
       this.createdAt,
       this.updatedAt,
-      this.permissions});
+      this.publishedAt});
 
-  Role.fromJson(Map<String, dynamic> json) {
+  Developer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    description = json['description'];
-    type = json['type'];
+    email = json['email'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    permissions = json['permissions'];
+    publishedAt = json['publishedAt'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
-    data['description'] = description;
-    data['type'] = type;
+    data['email'] = email;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    if (permissions != null) {
-      data['permissions'] = jsonEncode(permissions);
-    }
+    data['publishedAt'] = publishedAt;
     return data;
   }
 }
