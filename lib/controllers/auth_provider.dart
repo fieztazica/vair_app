@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:vair_app/helpers/api_endpoints.dart';
 import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/shared/GetBaseProvider.dart';
 
@@ -7,14 +8,15 @@ class AuthProvider extends GetBaseProvider {
   void onInit() {
     super.onInit();
     httpClient.defaultDecoder = AuthUser.fromJson as dynamic;
-    httpClient.baseUrl = '${GetBaseProvider.strapiBaseApiURL}/auth';
+    httpClient.baseUrl = '${ApiEndPoints.strapiBaseApiURL}/auth';
 
     super.addResponseModifier<AuthUser>(strapiRes: false);
   }
 
-  Future<Response<AuthUser>> localLogin(
-      String identifier, String password) async {
+  Future<Response> localLogin(String identifier, String password) async {
     Map body = {'identifier': identifier, 'password': password};
-    return post<AuthUser>('/local', body);
+    return post(
+        "${ApiEndPoints.strapiBaseApiURL}${ApiEndPoints.authEndpoints.loginEmail}",
+        body);
   }
 }

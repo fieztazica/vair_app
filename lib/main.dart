@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:vair_app/bindings/RootBindings.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      initialBinding: RootBindings(),
     );
   }
 }

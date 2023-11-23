@@ -8,7 +8,7 @@ import 'package:vair_app/screens/notification_screen.dart';
 import 'package:vair_app/widget/account_dialog.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 
-class TabController extends GetxController {
+class MainScreenController extends GetxController {
   var currentIndex = 0.obs;
 
   final pages = <String>[Routes.HOME, Routes.LIBRARY, Routes.ACCOUNT];
@@ -45,19 +45,19 @@ class TabController extends GetxController {
   }
 }
 
-class NavBarScreen extends StatelessWidget {
+class MainScreen extends StatelessWidget {
   final _logoAssetPath = 'assets/img/vair_logo.png';
   final AuthController _authController = Get.put(AuthController());
-  final TabController _tabController = Get.put(TabController());
+  final MainScreenController _controller = Get.put(MainScreenController());
 
-  NavBarScreen({super.key});
+  MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: Obx(() => NavigationBar(
-              onDestinationSelected: _tabController.onTabTapped,
-              selectedIndex: _tabController.currentIndex.value,
+              onDestinationSelected: _controller.onTabTapped,
+              selectedIndex: _controller.currentIndex.value,
               destinations: <Widget>[
                 const NavigationDestination(
                   selectedIcon: Icon(Icons.home),
@@ -128,6 +128,6 @@ class NavBarScreen extends StatelessWidget {
         body: Navigator(
             key: Get.nestedKey(1),
             initialRoute: Routes.HOME,
-            onGenerateRoute: _tabController.onGenerateRoute));
+            onGenerateRoute: _controller.onGenerateRoute));
   }
 }
