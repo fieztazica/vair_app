@@ -1,4 +1,4 @@
-import 'package:vair_app/models/Banners.dart';
+import 'package:vair_app/models/Banner.dart';
 
 class Product {
   int? id;
