@@ -10,7 +10,7 @@ class UserProvider extends GetBaseProvider {
     super.onInit();
     httpClient.baseUrl = '${GetBaseProvider.strapiBaseApiURL}/users';
 
-    super.addResponseModifier<User>();
+    super.addResponseModifier<User>(strapiRes: false);
     super.addAuthenticator();
   }
 }
