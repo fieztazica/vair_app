@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vair_app/models/ProductModel.dart';
+import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/shared/const_data.dart';
 
-List<ProductModel> products = [
+List<Product> products = [
   ...exampleProducts,
   ...exampleProducts,
   ...exampleProducts
@@ -23,12 +23,14 @@ class LibraryScreen extends StatelessWidget {
         childAspectRatio: 1.0,
       ),
       itemBuilder: (BuildContext context, int index) {
+        var selectedProduct = products[index];
+
         return GridTile(
           header: Container(
             padding: const EdgeInsets.all(5),
             color: Colors.teal[900]?.withOpacity(0.8),
             child: Text(
-              products[index].name,
+              selectedProduct.name!,
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -56,7 +58,7 @@ class LibraryScreen extends StatelessWidget {
             color: Colors.teal[300],
             child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: products[index].logo.url,
+                imageUrl: selectedProduct.logo!.url!,
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error)),

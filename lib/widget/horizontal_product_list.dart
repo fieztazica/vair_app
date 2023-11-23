@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vair_app/widget/product_card.dart';
 import 'package:vair_app/widget/list_title.dart';
-import 'package:vair_app/models/ProductModel.dart';
+import 'package:vair_app/models/Product.dart';
 
 class HorizontalProductList extends StatelessWidget {
   final String title;
-  final List<ProductModel> items;
+  final List<Product> items;
 
   const HorizontalProductList(
       {super.key, required this.items, required this.title});
@@ -22,11 +22,11 @@ class HorizontalProductList extends StatelessWidget {
                 child: Row(
                     children: List.generate(items.length, (index) {
                   return ProductCard(
-                    name: items[index].name,
-                    description: items[index].description,
-                    price: items[index].price,
-                    logoUrl: items[index].logo.url,
-                    bannerUrl: items[index].banners.first.url,
+                    name: items[index].name!,
+                    description: items[index].description!,
+                    price: items[index].price!,
+                    logoUrl: items[index].logo!.url!,
+                    bannerUrl: items[index].banners!.first.url!,
                   );
                 }))))
       ],
