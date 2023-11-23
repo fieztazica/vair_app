@@ -1,0 +1,1 @@
+enum ConstKeys { strapiToken }

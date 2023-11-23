@@ -31,21 +31,21 @@ class User {
     blocked = json['blocked'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    role = json['role'] != null ? new Role.fromJson(json['role']) : null;
+    role = json['role'] != null ? Role.fromJson(json['role']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['email'] = this.email;
-    data['provider'] = this.provider;
-    data['confirmed'] = this.confirmed;
-    data['blocked'] = this.blocked;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    if (this.role != null) {
-      data['role'] = this.role!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['email'] = email;
+    data['provider'] = provider;
+    data['confirmed'] = confirmed;
+    data['blocked'] = blocked;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    if (role != null) {
+      data['role'] = role!.toJson();
     }
     return data;
   }
