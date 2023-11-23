@@ -1,4 +1,4 @@
-import 'package:vair_app/models/Banner.dart';
+import 'package:vair_app/models/Asset.dart';
 
 class Product {
   int? id;
@@ -8,8 +8,8 @@ class Product {
   String? createdAt;
   String? updatedAt;
   String? publishedAt;
-  List<Banner>? banners;
-  Banner? logo;
+  List<Asset>? banners;
+  Asset? logo;
 
   Product(
       {this.id,
@@ -31,12 +31,12 @@ class Product {
     updatedAt = json['updatedAt'];
     publishedAt = json['publishedAt'];
     if (json['banners'] != null) {
-      banners = <Banner>[];
+      banners = <Asset>[];
       json['banners'].forEach((v) {
-        banners!.add(Banner.fromJson(v));
+        banners!.add(Asset.fromJson(v));
       });
     }
-    logo = json['logo'] != null ? Banner.fromJson(json['logo']) : null;
+    logo = json['logo'] != null ? Asset.fromJson(json['logo']) : null;
   }
 
   Map<String, dynamic> toJson() {

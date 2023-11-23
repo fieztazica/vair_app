@@ -1,6 +1,6 @@
 import 'package:vair_app/models/Formats.dart';
 
-class Banner {
+class Asset {
   int? id;
   String? name;
   String? alternativeText;
@@ -19,7 +19,7 @@ class Banner {
   String? createdAt;
   String? updatedAt;
 
-  Banner(
+  Asset(
       {this.id,
       this.name,
       this.alternativeText,
@@ -38,7 +38,7 @@ class Banner {
       this.createdAt,
       this.updatedAt});
 
-  Banner.fromJson(Map<String, dynamic> json) {
+  Asset.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     alternativeText = json['alternativeText'];
