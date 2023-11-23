@@ -1,4 +1,4 @@
-import 'package:vair_app/models/Error.dart';
+import 'package:vair_app/models/StrapiError.dart';
 import 'package:vair_app/models/Meta.dart';
 
 class StrapiRes<T> {

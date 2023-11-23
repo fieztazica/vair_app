@@ -4,9 +4,6 @@ import 'package:vair_app/models/StrapiRes.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
 class GetBaseProvider extends GetConnect {
-  static const String strapiBaseApiURL = "https://strapi.vair.nyte.tk/api";
-  static const String expressBaseApiURL = "https://express.vair.nyte.tk/api";
-
   final box = GetStorage();
 
   void addAuthenticator() {

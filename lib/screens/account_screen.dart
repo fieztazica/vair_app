@@ -13,10 +13,11 @@ class AccountScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Account')),
       body: ListView(
         children: [
-          // Obx(() => Text(_authController.isUserSignedIn.isTrue
-          //     ? _authController.authUser.value.id
-          //     : 'Sign in to see your account detail')),
-          // Obx(() => Text(_authController.authUser.value.username)),
+          if (_authController.isUserSignedIn.isTrue)
+            Obx(() => Text(_authController.authUser.value?.id.toString() ??
+                'Sign in to see your account detail')),
+          Obx(() =>
+              Text(_authController.authUser.value?.username ?? "Unauthorized")),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 class ApiEndPoints {
-  static final String baseUrl = 'http://strapi.vair.nyte.tk/api/';
+  static const String strapiBaseApiURL = 'http://strapi.vair.nyte.tk/api/';
+  static const String expressBaseApiURL = "https://express.vair.nyte.tk/api";
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
 
