@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/helpers/api_endpoints.dart';
+import 'package:vair_app/routes/app_pages.dart';
 
 class SigninScreenController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -42,7 +43,7 @@ class SigninScreenController extends GetxController {
 
           controllerUsername.clear();
           controllerPassword.clear();
-          Get.off('/home');
+          Get.off(Routes.MAIN);
         } else if (json['code'] == 1) {
           throw jsonDecode(response.body)['message'];
         }
@@ -179,7 +180,7 @@ class SigninScreen extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           controller.formKey.currentState?.reset();
-                          Get.offAndToNamed('/signup');
+                          Get.offAndToNamed(Routes.SIGNUP);
                         },
                         child: const Text("Signup"),
                       ),

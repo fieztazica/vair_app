@@ -8,8 +8,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Product prod =
-        exampleProducts.where((element) => element == Get.parameters['id']).first;
+    Product prod = exampleProducts
+        .where((element) => element.name == Get.parameters['id'])
+        .first;
 
     return Scaffold(
       appBar: AppBar(

@@ -12,14 +12,13 @@ part 'app_routes.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppPages {
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.MAIN;
 
   static final routes = [
-    GetPage(
-      name: Routes.HOME,
-      page: () => NavBarScreen(),
-    ),
-    GetPage(name: Routes.LIBRARY, page: () => const LibraryScreen()),
+    GetPage(name: Routes.MAIN, page: () => NavBarScreen(), children: [
+      GetPage(name: Routes.HOME, page: () => const HomeScreen()),
+      GetPage(name: Routes.LIBRARY, page: () => const LibraryScreen()),
+    ]),
     GetPage(
       name: Routes.DETAIL,
       page: () => const ProductDetailScreen(),

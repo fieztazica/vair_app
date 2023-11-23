@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
+import 'package:vair_app/routes/app_pages.dart';
 
 class SignupScreenController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -202,7 +203,7 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       const Text("Already have an account?"),
                       TextButton(
-                        onPressed: () => Get.offAndToNamed('/signin'),
+                        onPressed: () => Get.offAndToNamed(Routes.SIGNIN),
                         child: const Text("Login"),
                       ),
                     ],

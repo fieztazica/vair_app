@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/screens/account_screen.dart';
 import 'package:vair_app/screens/home_screen.dart';
 import 'package:vair_app/screens/library_screen.dart';
@@ -8,11 +9,39 @@ import 'package:vair_app/widget/account_dialog.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 
 class TabController extends GetxController {
-  var selectedTab = 0.obs;
+  var currentIndex = 0.obs;
+
+  final pages = <String>[Routes.HOME, Routes.LIBRARY, Routes.ACCOUNT];
 
   void onTabTapped(int index) {
-    selectedTab.value = index;
+    currentIndex.value = index;
+    Get.toNamed(pages[index], id: 1);
     update();
+  }
+
+  Route? onGenerateRoute(RouteSettings settings) {
+    if (settings.name == Routes.HOME) {
+      return GetPageRoute(
+        settings: settings,
+        page: () => const HomeScreen(),
+      );
+    }
+
+    if (settings.name == Routes.LIBRARY) {
+      return GetPageRoute(
+        settings: settings,
+        page: () => const LibraryScreen(),
+      );
+    }
+
+    if (settings.name == Routes.ACCOUNT) {
+      return GetPageRoute(
+        settings: settings,
+        page: () => AccountScreen(),
+      );
+    }
+
+    return null;
   }
 }
 
@@ -21,12 +50,6 @@ class NavBarScreen extends StatelessWidget {
   final AuthController _authController = Get.put(AuthController());
   final TabController _tabController = Get.put(TabController());
 
-  List<Widget> tabs = <Widget>[
-    const HomeScreen(),
-    const LibraryScreen(),
-    AccountScreen(),
-  ];
-
   NavBarScreen({super.key});
 
   @override
@@ -34,7 +57,7 @@ class NavBarScreen extends StatelessWidget {
     return Scaffold(
         bottomNavigationBar: Obx(() => NavigationBar(
               onDestinationSelected: _tabController.onTabTapped,
-              selectedIndex: _tabController.selectedTab.value,
+              selectedIndex: _tabController.currentIndex.value,
               destinations: <Widget>[
                 const NavigationDestination(
                   selectedIcon: Icon(Icons.home),
@@ -71,7 +94,7 @@ class NavBarScreen extends StatelessWidget {
                 size: 24,
               ),
               onPressed: () {
-                Get.toNamed('/search');
+                Get.toNamed(Routes.SEARCH);
               },
             ),
             IconButton(
@@ -92,7 +115,7 @@ class NavBarScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (_authController.isUserSignedIn.isFalse) {
-                    Get.toNamed('/signin');
+                    Get.toNamed(Routes.SIGNIN);
                   } else {
                     // Get.to(() => AccountScreen());
                     Get.dialog(AccountDialog());
@@ -102,6 +125,9 @@ class NavBarScreen extends StatelessWidget {
             )
           ],
         ),
-        body: Obx(() => tabs.elementAt(_tabController.selectedTab.value)));
+        body: Navigator(
+            key: Get.nestedKey(1),
+            initialRoute: Routes.HOME,
+            onGenerateRoute: _tabController.onGenerateRoute));
   }
 }

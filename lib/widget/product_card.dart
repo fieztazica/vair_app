@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/routes/app_pages.dart';
 
 class ProductCard extends StatelessWidget {
   final String name;
@@ -20,7 +21,7 @@ class ProductCard extends StatelessWidget {
       this.bought = false});
 
   void _onTap() {
-    Get.toNamed('/detail', parameters: {"id": name}); //
+    Get.toNamed(Routes.DETAIL, parameters: {"id": name}); //
   }
 
   @override
