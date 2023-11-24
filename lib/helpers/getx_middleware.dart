@@ -7,7 +7,7 @@ class GlobalMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    return authController.isUserSignedIn.value ||
+    return authController.authUser.value != null ||
             route == '/signup' ||
             route == '/signin' ||
             route == '/confirm'

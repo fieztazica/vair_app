@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/controllers/auth_provider.dart';
+import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/models/User.dart';
 import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/shared/const_keys.dart';
@@ -27,12 +30,9 @@ class SigninScreenController extends GetxController {
           controllerUsername.text.trim(), controllerPassword.text);
 
       if (response.statusCode == 200) {
-        var token = response.body["jwt"];
-        var user = response.body["user"];
-        authController.isUserSignedIn.value = true;
-        authController.authUser.value = User.fromJson(response.body);
-        await authProvider.box.write(ConstKeys.strapiToken.name, token);
-        await authProvider.box.write(ConstKeys.user.name, user);
+        // var token = response.body['token'];
+        // var user = response.body['user'];
+        await authProvider.box.write(ConstKeys.authUser.name, response.body);
 
         controllerUsername.clear();
         controllerPassword.clear();
@@ -41,9 +41,7 @@ class SigninScreenController extends GetxController {
         throw (response.body)["error"]["message"] ?? "Unknown Error Occured";
       }
     } catch (error) {
-      // Get.back();
-
-      authController.isUserSignedIn.value = false;
+      authController.reset();
       showDialog(
           context: Get.context!,
           builder: (context) {

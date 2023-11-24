@@ -72,7 +72,7 @@ class MainScreen extends StatelessWidget {
                 NavigationDestination(
                   selectedIcon: const Icon(Icons.people),
                   icon: const Icon(Icons.people_outlined),
-                  label: _authController.isUserSignedIn.value
+                  label: _authController.authUser.value != null
                       ? 'Account'
                       : 'Sign In',
                 ),
@@ -114,7 +114,7 @@ class MainScreen extends StatelessWidget {
                   size: 24,
                 ),
                 onPressed: () {
-                  if (_authController.isUserSignedIn.isFalse) {
+                  if (_authController.authUser.value == null) {
                     Get.toNamed(Routes.SIGNIN);
                   } else {
                     // Get.to(() => AccountScreen());

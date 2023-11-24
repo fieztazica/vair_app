@@ -7,10 +7,7 @@ class AuthProvider extends GetBaseProvider {
   @override
   void onInit() {
     super.onInit();
-    httpClient.defaultDecoder = AuthUser.fromJson as dynamic;
     httpClient.baseUrl = '${ApiEndPoints.strapiBaseApiURL}/auth';
-
-    super.addResponseModifier<AuthUser>(strapiRes: false);
   }
 
   Future<Response> localLogin(String identifier, String password) async {
