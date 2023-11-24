@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:vair_app/bindings/AuthBindings.dart';
 import 'package:vair_app/bindings/MainScreenBindings.dart';
+import 'package:vair_app/bindings/ProductBindings.dart';
+import 'package:vair_app/bindings/RootBindings.dart';
 import 'package:vair_app/screens/account_screen.dart';
 import 'package:vair_app/screens/auth/signin_screen.dart';
 import 'package:vair_app/screens/auth/signup_screen.dart';
@@ -17,21 +19,22 @@ class AppPages {
   static const INITIAL = Routes.MAIN;
 
   static final routes = [
-    GetPage(
-        name: Routes.MAIN,
-        page: () => MainScreen(),
-        binding: MainScreenBindings(),
-        children: [
-          GetPage(name: Routes.HOME, page: () => const HomeScreen()),
-          GetPage(name: Routes.LIBRARY, page: () => const LibraryScreen()),
-        ]),
+    GetPage(name: Routes.MAIN, page: () => MainScreen(), bindings: [
+      MainScreenBindings(),
+      RootBindings()
+    ], children: [
+      GetPage(name: Routes.HOME, page: () => const HomeScreen()),
+      GetPage(name: Routes.LIBRARY, page: () => const LibraryScreen()),
+    ]),
     GetPage(
       name: Routes.DETAIL,
       page: () => const ProductDetailScreen(),
+      bindings: [ProductBindings(), AuthBindings()],
     ),
     GetPage(
       name: Routes.ACCOUNT,
       page: () => AccountScreen(),
+      bindings: [AuthBindings()],
     ),
     GetPage(
       name: Routes.SEARCH,
@@ -40,10 +43,10 @@ class AppPages {
     GetPage(
         name: Routes.SIGNIN,
         page: () => SigninScreen(),
-        binding: AuthBindings()),
+        bindings: [AuthBindings()]),
     GetPage(
         name: Routes.SIGNUP,
         page: () => SignupScreen(),
-        binding: AuthBindings()),
+        bindings: [AuthBindings()]),
   ];
 }
