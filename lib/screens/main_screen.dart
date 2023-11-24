@@ -9,13 +9,19 @@ import 'package:vair_app/widget/account_dialog.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 
 class MainScreenController extends GetxController {
+  final AuthController authController = Get.put(AuthController());
   var currentIndex = 0.obs;
 
   final pages = <String>[Routes.HOME, Routes.LIBRARY, Routes.ACCOUNT];
 
   void onTabTapped(int index) {
     currentIndex.value = index;
-    Get.toNamed(pages[index], id: 1);
+    String path = pages[index];
+    if (path == Routes.ACCOUNT && authController.authUser.value == null) {
+      Get.toNamed(Routes.SIGNIN);
+    } else {
+      Get.toNamed(path, id: 1);
+    }
     update();
   }
 

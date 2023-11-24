@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/models/User.dart';
+import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
 class AuthController extends GetxController {
@@ -33,13 +34,15 @@ class AuthController extends GetxController {
     var readData = box.read(ConstKeys.authUser.name);
     if (readData != null) {
       Map<String, dynamic> json = Map.from(readData);
-      authUser.value = AuthUser.fromJson(json);
+      AuthUser parsedData = AuthUser.fromJson(json);
+      if (parsedData.jwt == null) {
+        signOut();
+      } else {
+        authUser.value = parsedData;
+      }
+    } else {
+      reset();
     }
-    // AuthUser? user =
-    //     AuthUser.fromJson();
-    // if (user != null) {
-    //   authUser.value = user;
-    // }
   }
 
   signOut() {

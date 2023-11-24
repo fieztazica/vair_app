@@ -23,6 +23,7 @@ class AccountDialog extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       _authController.signOut();
+                      Get.back();
                     },
                     child: const Text('Logout'))
               ],
