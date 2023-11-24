@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
+import 'package:vair_app/helpers/app_snackbar.dart';
 import 'package:vair_app/providers/auth_provider.dart';
 import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/shared/const_keys.dart';
@@ -22,6 +23,8 @@ class SigninScreenController extends GetxController {
 
   Future<void> loginWithEmail() async {
     try {
+      Get.snackbar("Vair", "Signing you in...", showProgressIndicator: true);
+      // Snackbar.normal("Signing you in...");
       var response = await authProvider.localLogin(
           controllerUsername.text.trim(), controllerPassword.text);
 

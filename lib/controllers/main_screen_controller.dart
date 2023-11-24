@@ -2,49 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
-import 'package:vair_app/screens/account_screen.dart';
-import 'package:vair_app/screens/home_screen.dart';
-import 'package:vair_app/screens/library_screen.dart';
+import 'package:vair_app/screens/tabs/main_screen/profile_tab.dart';
+import 'package:vair_app/screens/tabs/main_screen/home_tab.dart';
+import 'package:vair_app/screens/tabs/main_screen/library_tab.dart';
 
 class MainScreenController extends GetxController {
   final AuthController authController = Get.put(AuthController());
+  late PageController pageController;
   var currentIndex = 0.obs;
 
-  final pages = <String>[Routes.HOME, Routes.LIBRARY, Routes.ACCOUNT];
+  List<Widget> pages = <Widget>[
+    const HomeTab(),
+    const LibraryTab(),
+    ProfileTab()
+  ];
 
-  void onTabTapped(int index) {
-    currentIndex.value = index;
-    String path = pages[index];
-    if (path == Routes.ACCOUNT && authController.authUser.value == null) {
-      Get.toNamed(Routes.SIGNIN);
-    } else {
-      Get.toNamed(path, id: 1);
-    }
+  void goToTab(int page) {
+    currentIndex.value = page;
+    pageController.jumpToPage(page);
     update();
   }
 
-  Route? onGenerateRoute(RouteSettings settings) {
-    if (settings.name == Routes.HOME) {
-      return GetPageRoute(
-        settings: settings,
-        page: () => const HomeScreen(),
-      );
-    }
+  void animateToTab(int page) {
+    currentIndex.value = page;
+    pageController.animateToPage(page,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    update();
+  }
 
-    if (settings.name == Routes.LIBRARY) {
-      return GetPageRoute(
-        settings: settings,
-        page: () => const LibraryScreen(),
-      );
-    }
+  @override
+  void onInit() {
+    pageController = PageController(initialPage: 0);
+    super.onInit();
+  }
 
-    if (settings.name == Routes.ACCOUNT) {
-      return GetPageRoute(
-        settings: settings,
-        page: () => AccountScreen(),
-      );
-    }
-
-    return null;
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 }

@@ -9,8 +9,8 @@ List<Product> products = [
   ...exampleProducts
 ];
 
-class LibraryScreen extends StatelessWidget {
-  const LibraryScreen({Key? key}) : super(key: key);
+class LibraryTab extends StatelessWidget {
+  const LibraryTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

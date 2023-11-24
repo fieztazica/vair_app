@@ -16,7 +16,6 @@ Future<void> initServices() async {
 
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
-  Get.put(AuthController());
   await GetStorage.init();
   // await Get.putAsync(() => AmplifyService().configureAmplify());
   // await Get.putAsync(SettingsService()).init();

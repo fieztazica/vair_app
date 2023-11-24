@@ -6,8 +6,8 @@ import 'package:vair_app/providers/auth_provider.dart';
 class AuthBindings implements Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => AuthProvider());
     Get.lazyPut(() => SigninScreenController());
     Get.lazyPut(() => SignupScreenController());
-    Get.lazyPut(() => AuthProvider());
   }
 }

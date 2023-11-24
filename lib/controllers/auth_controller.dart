@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:js_interop';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:vair_app/helpers/app_snackbar.dart';
 import 'package:vair_app/models/AuthUser.dart';
-import 'package:vair_app/models/User.dart';
-import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
 class AuthController extends GetxController {
@@ -39,6 +35,7 @@ class AuthController extends GetxController {
         signOut();
       } else {
         authUser.value = parsedData;
+        Get.snackbar("Vair", "Welcome ${parsedData.user!.username!}!");
       }
     } else {
       reset();
