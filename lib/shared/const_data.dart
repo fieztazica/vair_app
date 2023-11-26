@@ -11,7 +11,12 @@ List<Product> exampleProducts = [
       banners: [
         Asset(
             id: 1,
-            url: 'https://pfps.gg/assets/banners/2441-aesthetic-waves.gif')
+            url: 'https://pfps.gg/assets/banners/2441-aesthetic-waves.gif'),
+        Asset(
+          id: 2,
+          url:
+              'https://cdn.pixabay.com/photo/2020/03/06/21/08/illustration-4908159_1280.jpg',
+        ),
       ],
       name: 'Facebook',
       description:
@@ -25,9 +30,14 @@ List<Product> exampleProducts = [
               'https://static-00.iconduck.com/assets.00/discord-icon-2048x2048-nnt62s2u.png'),
       banners: [
         Asset(
-            id: 2,
+            id: 3,
             url:
-                'https://static-prod.adweek.com/wp-content/uploads/2022/12/Discord-Snowsgiving-2022-Hero-1280x680.png')
+                'https://static-prod.adweek.com/wp-content/uploads/2022/12/Discord-Snowsgiving-2022-Hero-1280x680.png'),
+        Asset(
+          id: 4,
+          url:
+              'https://cdn.pixabay.com/photo/2020/03/06/21/08/illustration-4908159_1280.jpg',
+        ),
       ],
       name: 'Discord',
       description:
@@ -41,9 +51,14 @@ List<Product> exampleProducts = [
               'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Signal-Logo.svg/600px-Signal-Logo.svg.png'),
       banners: [
         Asset(
-            id: 3,
+            id: 5,
             url:
-                'https://cdn.pixabay.com/photo/2020/03/06/21/08/illustration-4908159_1280.jpg')
+                'https://cdn.pixabay.com/photo/2020/03/06/21/08/illustration-4908159_1280.jpg'),
+        Asset(
+          id: 6,
+          url:
+              'https://cdn.pixabay.com/photo/2020/03/06/21/08/illustration-4908159_1280.jpg',
+        ),
       ],
       name: 'Signal',
       description:
@@ -57,7 +72,15 @@ List<Product> exampleProducts = [
               'https://cdn.discordapp.com/attachments/854996766154817559/1169208694576259082/thorium-the-great-browser-v0-nh81ug88ns0a1.png'),
       banners: [
         Asset(
-            id: 4,
+            id: 7,
+            url:
+                'https://img.freepik.com/premium-vector/flower-mountain-landscape-background_147887-336.jpg'),
+        Asset(
+            id: 8,
+            url:
+                'https://img.freepik.com/premium-vector/flower-mountain-landscape-background_147887-336.jpg'),
+        Asset(
+            id: 9,
             url:
                 'https://img.freepik.com/premium-vector/flower-mountain-landscape-background_147887-336.jpg')
       ],
@@ -73,7 +96,7 @@ List<Product> exampleProducts = [
               'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-Zalo-Arc.png'),
       banners: [
         Asset(
-            id: 5,
+            id: 10,
             url:
                 'https://images.squarespace-cdn.com/content/v1/5d0b957a67bac40001fe4b33/1583297963085-ALODNP6B3ZXQVPBKH8GT/Discord+Banner.jpg')
       ],

@@ -3,8 +3,15 @@ import 'package:get/get.dart';
 import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/shared/const_data.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({Key? key});
+
+  @override
+  _ProductDetailScreenState createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -70,18 +77,33 @@ class ProductDetailScreen extends StatelessWidget {
                     minimumSize: MaterialStateProperty.all(Size(
                         double.infinity, 30)), // Adjust the height as needed
                   ),
-                  child: const Text('Install'),
+                  child: Text(
+                    prod.price! <= 0
+                        ? 'Install'
+                        : '${prod.price?.toStringAsFixed(2)} VND',
+                  ),
                 ),
               ),
+              if (prod.banners != null && prod.banners!.isNotEmpty)
+                Container(
+                  height: 200,
+                  child: PageView.builder(
+                    itemCount: prod.banners!.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 3.0),
+                        child: Image.network(
+                          prod.banners![index].url!,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ListTile(
                 contentPadding: EdgeInsets.all(0),
                 title: Text('Description'),
                 subtitle: Text(prod.description!),
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.all(0),
-                title: Text('Price'),
-                subtitle: Text('VND ${prod.price?.toStringAsFixed(2)}'),
               ),
             ],
           ),
