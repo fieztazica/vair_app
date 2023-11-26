@@ -4,7 +4,7 @@ import 'package:vair_app/controllers/signin_screen_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
 
 class SigninScreen extends StatelessWidget {
-  final controller = Get.put(SigninScreenController());
+  final controller = Get.find<SigninScreenController>();
 
   SigninScreen({Key? key}) : super(key: key);
 
@@ -21,7 +21,7 @@ class SigninScreen extends StatelessWidget {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              const SizedBox(height: 150),
+              const SizedBox(height: 10),
               Text(
                 "Welcome back",
                 style: Theme.of(context).textTheme.headlineLarge,
@@ -31,7 +31,7 @@ class SigninScreen extends StatelessWidget {
                 "Login to your account",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: controller.controllerUsername,
                 keyboardType: TextInputType.name,
@@ -82,7 +82,7 @@ class SigninScreen extends StatelessWidget {
                       return null;
                     },
                   )),
-              const SizedBox(height: 60),
+              const SizedBox(height: 20),
               Column(
                 children: [
                   ElevatedButton(

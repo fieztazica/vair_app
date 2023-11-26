@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/controllers/main_screen_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/screens/notification_screen.dart';
@@ -8,7 +9,8 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class MainScreen extends StatelessWidget {
   final _logoAssetPath = 'assets/img/vair_logo.png';
-  final MainScreenController _controller = Get.put(MainScreenController());
+  final MainScreenController _controller = Get.find<MainScreenController>();
+  final AuthController _authController = Get.find<AuthController>();
 
   MainScreen({super.key});
 
@@ -32,7 +34,7 @@ class MainScreen extends StatelessWidget {
                     icon: Icons.people_outlined,
                     page: 2,
                     context,
-                    label: _controller.authController.authUser.value != null
+                    label: _authController.authUser.value != null
                         ? 'Profile'
                         : 'Sign In'),
               ],
@@ -73,7 +75,7 @@ class MainScreen extends StatelessWidget {
                   size: 24,
                 ),
                 onPressed: () {
-                  if (_controller.authController.authUser.value == null) {
+                  if (_authController.authUser.value == null) {
                     Get.toNamed(Routes.SIGNIN);
                   } else {
                     // Get.to(() => AccountScreen());
@@ -87,8 +89,8 @@ class MainScreen extends StatelessWidget {
         body: PageView(
           controller: _controller.pageController,
           onPageChanged: _controller.animateToTab,
-          children: [..._controller.pages],
           physics: const BouncingScrollPhysics(),
+          children: [..._controller.pages],
         ));
   }
 

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/controllers/signup_screen_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
 
 class SignupScreen extends StatelessWidget {
-  final controller = Get.put(SignupScreenController());
-  final authController = Get.put(AuthController());
+  final controller = Get.find<SignupScreenController>();
 
   SignupScreen({Key? key}) : super(key: key);
 
@@ -23,7 +21,7 @@ class SignupScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
-              const SizedBox(height: 100),
+              const SizedBox(height: 30),
               Text(
                 "Register",
                 style: Theme.of(context).textTheme.headlineLarge,
@@ -33,7 +31,7 @@ class SignupScreen extends StatelessWidget {
                 "Create your account",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              const SizedBox(height: 35),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: controller.controllerUsername,
                 keyboardType: TextInputType.name,
@@ -145,7 +143,7 @@ class SignupScreen extends StatelessWidget {
                       return null;
                     },
                   )),
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
               Column(
                 children: [
                   ElevatedButton(
@@ -156,15 +154,12 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      // if (controller.formKey.currentState?.validate() ??
-                      //     false) {
-                      //   authController.signUpUser(
-                      //       username: controller.controllerUsername.text,
-                      //       password: controller.controllerConFirmPassword.text,
-                      //       email: controller.controllerEmail.text);
+                      if (controller.formKey.currentState?.validate() ??
+                          false) {
+                        controller.registerWithEmail();
 
-                      //   controller.formKey.currentState?.reset();
-                      // }
+                        controller.formKey.currentState?.reset();
+                      }
                     },
                     child: const Text("Register"),
                   ),

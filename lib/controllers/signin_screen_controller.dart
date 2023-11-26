@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/controllers/auth_controller.dart';
-import 'package:vair_app/helpers/app_snackbar.dart';
 import 'package:vair_app/providers/auth_provider.dart';
 import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/shared/const_keys.dart';
@@ -12,8 +10,7 @@ class SigninScreenController extends GetxController {
   final FocusNode focusNodePassword = FocusNode();
   final TextEditingController controllerUsername = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
-  final AuthController authController = AuthController();
-  final AuthProvider authProvider = AuthProvider();
+  final AuthProvider authProvider = Get.put(AuthProvider());
 
   var obscurePassword = true.obs;
 
@@ -37,19 +34,14 @@ class SigninScreenController extends GetxController {
         controllerPassword.clear();
         Get.offAllNamed(Routes.MAIN);
       } else {
-        throw (response.body)["error"]["message"] ?? "Unknown Error Occured";
+        throw (response.body)["error"]["message"] ?? "Unknown Error Occurred";
       }
     } catch (error) {
-      authController.reset();
-      showDialog(
-          context: Get.context!,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text('Error'),
-              contentPadding: EdgeInsets.all(20),
-              children: [Text(error.toString())],
-            );
-          });
+      Get.dialog(SimpleDialog(
+        title: const Text('Error'),
+        contentPadding: const EdgeInsets.all(20),
+        children: [Text(error.toString())],
+      ));
     }
   }
 

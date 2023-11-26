@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
+import 'package:vair_app/helpers/box.dart';
 
 class ProfileTab extends StatelessWidget {
   final _authController = Get.put(AuthController());
+  final box = Box();
 
   ProfileTab({Key? key}) : super(key: key);
 
@@ -19,6 +21,7 @@ class ProfileTab extends StatelessWidget {
                     'Sign in to see your account detail')),
           Obx(() => Text(_authController.authUser.value?.user?.username ??
               "Unauthorized")),
+          Text(box.authUser?.user?.username ?? "Not found")
         ],
       ),
     );

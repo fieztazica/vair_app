@@ -1,49 +1,39 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:vair_app/helpers/app_snackbar.dart';
+import 'package:vair_app/helpers/box.dart';
 import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
 class AuthController extends GetxController {
   Rxn<AuthUser> authUser = Rxn<AuthUser>();
 
-  Function? disposeListen;
-
-  final box = GetStorage();
+  final box = Box();
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-    disposeListen = box.listen(() {
-      getAuthUser();
+    box.disposeListen = box.def.listen(() {
+      getAuthUserFromBox();
     });
   }
 
   @override
   void onClose() {
     super.onClose();
-    disposeListen?.call();
+    box.disposeListen?.call();
   }
 
-  getAuthUser() {
-    var readData = box.read(ConstKeys.authUser.name);
-    if (readData != null) {
-      Map<String, dynamic> json = Map.from(readData);
-      AuthUser parsedData = AuthUser.fromJson(json);
-      if (parsedData.jwt == null) {
-        signOut();
-      } else {
-        authUser.value = parsedData;
-        Get.snackbar("Vair", "Welcome ${parsedData.user!.username!}!");
-      }
-    } else {
-      reset();
-    }
+  set setAuthUser(AuthUser data) {
+    authUser.value = data;
+  }
+
+  getAuthUserFromBox() {
+    authUser.value = box.authUser;
+    print("getAuthUserFromBox");
+    print(authUser.value);
   }
 
   signOut() {
-    box.remove(ConstKeys.authUser.name);
+    box.def.remove(ConstKeys.authUser.name);
   }
 
   reset() {

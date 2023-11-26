@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
-import 'package:vair_app/routes/app_pages.dart';
-import 'package:vair_app/screens/tabs/main_screen/profile_tab.dart';
 import 'package:vair_app/screens/tabs/main_screen/home_tab.dart';
 import 'package:vair_app/screens/tabs/main_screen/library_tab.dart';
+import 'package:vair_app/screens/tabs/main_screen/profile_tab.dart';
 
 class MainScreenController extends GetxController {
-  final AuthController authController = Get.put(AuthController());
   late PageController pageController;
   var currentIndex = 0.obs;
+
+  final AuthController authController = Get.put(AuthController());
 
   List<Widget> pages = <Widget>[
     const HomeTab(),
@@ -21,6 +21,7 @@ class MainScreenController extends GetxController {
     currentIndex.value = page;
     pageController.jumpToPage(page);
     update();
+    authController.update();
   }
 
   void animateToTab(int page) {
@@ -28,6 +29,7 @@ class MainScreenController extends GetxController {
     pageController.animateToPage(page,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
     update();
+    authController.update();
   }
 
   @override

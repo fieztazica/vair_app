@@ -6,7 +6,7 @@ import 'package:vair_app/controllers/signup_screen_controller.dart';
 class RootBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put(() => AuthController());
+    Get.put(AuthController());
     Get.lazyPut(() => SigninScreenController());
     Get.lazyPut(() => SignupScreenController());
   }
