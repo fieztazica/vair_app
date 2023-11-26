@@ -25,7 +25,6 @@ class ProductDetailScreen extends StatelessWidget {
           onPressed: () => Get.back(),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: Text(prod.name!),
         actions: [
           IconButton(onPressed: () => {}, icon: const Icon(Icons.search))
         ],
@@ -46,29 +45,30 @@ class ProductDetailScreen extends StatelessWidget {
                       width: 80, // Adjust the width as needed
                       fit: BoxFit.cover,
                     ),
-                    SizedBox(
-                      width: 16,
+                    const SizedBox(
+                      width: 4,
                     ), // Add spacing between image and name
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ListTile(
-                            title: Text('Name'),
-                            subtitle: Text(prod.name!),
+                            title: Text(prod.name!),
+                            subtitle: const Text("Vair Inc."),
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
+              const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(Size(
-                        double.infinity, 30)), // Adjust the height as needed
+                    minimumSize: MaterialStateProperty.all(const Size(
+                        double.infinity, 35)), // Adjust the height as needed
                   ),
                   child: Text(
                     prod.price! <= 0
@@ -77,6 +77,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
               if (prod.banners != null && prod.banners!.isNotEmpty)
                 Container(
                   height: 200,
@@ -84,7 +85,7 @@ class ProductDetailScreen extends StatelessWidget {
                     itemCount: prod.banners!.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
                         child: Image.network(
                           prod.banners![index].url!,
                           fit: BoxFit.cover,
@@ -93,9 +94,10 @@ class ProductDetailScreen extends StatelessWidget {
                     },
                   ),
                 ),
+              const SizedBox(height: 10),
               ListTile(
-                contentPadding: EdgeInsets.all(0),
-                title: Text('Description'),
+                contentPadding: const EdgeInsets.all(0),
+                title: const Text('Description'),
                 subtitle: Text(prod.description!),
               ),
             ],
