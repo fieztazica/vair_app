@@ -3,15 +3,8 @@ import 'package:get/get.dart';
 import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/shared/const_data.dart';
 
-class ProductDetailScreen extends StatefulWidget {
+class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({Key? key});
-
-  @override
-  _ProductDetailScreenState createState() => _ProductDetailScreenState();
-}
-
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
