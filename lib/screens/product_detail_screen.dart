@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/controllers/product_detail_screen_controller.dart';
 import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/shared/const_data.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key});
+  final ProductDetailScreenController _controller =
+      Get.find<ProductDetailScreenController>();
+
+  ProductDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vair_app/controllers/home_tab_controller.dart';
 import 'package:vair_app/widget/horizontal_product_list.dart';
 import 'package:vair_app/shared/const_data.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+  final HomeTabController controller = Get.put(HomeTabController());
+
+  HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
