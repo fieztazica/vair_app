@@ -1,18 +1,20 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:vair_app/helpers/box.dart';
 import 'package:vair_app/models/StrapiRes.dart';
-import 'package:vair_app/shared/const_keys.dart';
 
 class GetBaseProvider extends GetConnect {
-  final box = GetStorage();
+  final box = Box();
 
   void addAuthenticator() {
-    httpClient.addAuthenticator<dynamic>((request) async {
-      final token = box.read(ConstKeys.strapiToken.name);
-      // Set the header
-      request.headers['Authorization'] = "Bearer $token";
-      return request;
-    });
+    var authUser = box.authUser;
+    if (authUser != null && authUser?.jwt != null) {
+      httpClient.addAuthenticator<dynamic>((request) async {
+        final token = box.authUser!.jwt!;
+        // Set the header
+        request.headers['Authorization'] = "Bearer $token";
+        return request;
+      });
+    }
 
     //Autenticator will be called 3 times if HttpStatus is
     //HttpStatus.unauthorized
