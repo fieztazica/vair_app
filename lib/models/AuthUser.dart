@@ -19,4 +19,9 @@ class AuthUser {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return "$jwt, $user";
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:vair_app/helpers/app_converter.dart';
 import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
@@ -6,20 +7,10 @@ class Box {
   Function? disposeListen;
   final def = GetStorage();
 
-  AuthUser? get authUser {
-    var readData = def.read(ConstKeys.authUser.name);
-    if (readData != null) {
-      Map<String, dynamic> json = Map.from(readData);
-      AuthUser parsedData = AuthUser.fromJson(json);
-      return parsedData;
-    } else {
-      return null;
-    }
-  }
+  AuthUser? get authUser =>
+      AppConverter.convertAuthUser(def.read(ConstKeys.authUser.name));
 
   set setAuthUser(AuthUser data) {
     def.write(ConstKeys.authUser.name, data);
   }
-
-
 }

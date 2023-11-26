@@ -7,8 +7,6 @@ class UserProvider extends GetBaseProvider {
   void onInit() {
     super.onInit();
     httpClient.baseUrl = '${ApiEndPoints.strapiBaseApiURL}/users';
-
-    super.addResponseModifier<User>(strapiRes: false);
     super.addAuthenticator();
   }
 }

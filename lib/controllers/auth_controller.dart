@@ -11,6 +11,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getAuthUserFromBox();
     box.disposeListen = box.def.listen(() {
       getAuthUserFromBox();
     });
@@ -28,8 +29,6 @@ class AuthController extends GetxController {
 
   getAuthUserFromBox() {
     authUser.value = box.authUser;
-    print("getAuthUserFromBox");
-    print(authUser.value);
   }
 
   signOut() {
