@@ -1,1 +1,1 @@
-enum ConstKeys { strapiToken, user }
+enum ConstKeys { strapiToken, user, authUser }

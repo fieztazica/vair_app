@@ -17,12 +17,15 @@ class AccountDialog extends StatelessWidget {
               itemExtent: 35,
               padding: const EdgeInsets.symmetric(vertical: 10),
               children: [
-                // Obx(() => Text(_authController.authUser.value.username)),
-                // TextButton(
-                //     onPressed: () {
-                //       _authController.signOutCurrentUser();
-                //     },
-                //     child: const Text('Logout'))
+                if (_authController.authUser.value?.user?.username != null)
+                  Obx(() => Text(
+                      _authController.authUser.value?.user?.username ?? "")),
+                TextButton(
+                    onPressed: () {
+                      _authController.signOut();
+                      Get.back();
+                    },
+                    child: const Text('Logout'))
               ],
             )),
       ),

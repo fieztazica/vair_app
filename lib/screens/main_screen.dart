@@ -1,54 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/controllers/auth_controller.dart';
+import 'package:vair_app/controllers/main_screen_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
-import 'package:vair_app/screens/account_screen.dart';
-import 'package:vair_app/screens/home_screen.dart';
-import 'package:vair_app/screens/library_screen.dart';
 import 'package:vair_app/screens/notification_screen.dart';
 import 'package:vair_app/widget/account_dialog.dart';
-import 'package:vair_app/controllers/auth_controller.dart';
-
-class MainScreenController extends GetxController {
-  var currentIndex = 0.obs;
-
-  final pages = <String>[Routes.HOME, Routes.LIBRARY, Routes.ACCOUNT];
-
-  void onTabTapped(int index) {
-    currentIndex.value = index;
-    Get.toNamed(pages[index], id: 1);
-    update();
-  }
-
-  Route? onGenerateRoute(RouteSettings settings) {
-    if (settings.name == Routes.HOME) {
-      return GetPageRoute(
-        settings: settings,
-        page: () => const HomeScreen(),
-      );
-    }
-
-    if (settings.name == Routes.LIBRARY) {
-      return GetPageRoute(
-        settings: settings,
-        page: () => const LibraryScreen(),
-      );
-    }
-
-    if (settings.name == Routes.ACCOUNT) {
-      return GetPageRoute(
-        settings: settings,
-        page: () => AccountScreen(),
-      );
-    }
-
-    return null;
-  }
-}
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class MainScreen extends StatelessWidget {
   final _logoAssetPath = 'assets/img/vair_logo.png';
-  final AuthController _authController = Get.put(AuthController());
-  final MainScreenController _controller = Get.put(MainScreenController());
+  final MainScreenController _controller = Get.find<MainScreenController>();
+  final AuthController _authController = Get.find<AuthController>();
 
   MainScreen({super.key});
 
@@ -56,26 +18,25 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: Obx(() => NavigationBar(
-              onDestinationSelected: _controller.onTabTapped,
-              selectedIndex: _controller.currentIndex.value,
               destinations: <Widget>[
-                const NavigationDestination(
-                  selectedIcon: Icon(Icons.home),
-                  icon: Icon(Icons.home_outlined),
-                  label: 'Home',
+                _bottomAppBarItem(
+                  icon: Icons.home,
+                  page: 0,
+                  context,
+                  label: "Home",
                 ),
-                const NavigationDestination(
-                  selectedIcon: Icon(Icons.library_books),
-                  icon: Icon(Icons.library_books_outlined),
-                  label: 'Library',
-                ),
-                NavigationDestination(
-                  selectedIcon: const Icon(Icons.people),
-                  icon: const Icon(Icons.people_outlined),
-                  label: _authController.isUserSignedIn.value
-                      ? 'Account'
-                      : 'Sign In',
-                ),
+                _bottomAppBarItem(
+                    icon: Icons.library_books,
+                    page: 1,
+                    context,
+                    label: "Library"),
+                _bottomAppBarItem(
+                    icon: Icons.people_outlined,
+                    page: 2,
+                    context,
+                    label: _authController.authUser.value != null
+                        ? 'Profile'
+                        : 'Sign In'),
               ],
             )),
         appBar: AppBar(
@@ -114,7 +75,7 @@ class MainScreen extends StatelessWidget {
                   size: 24,
                 ),
                 onPressed: () {
-                  if (_authController.isUserSignedIn.isFalse) {
+                  if (_authController.authUser.value == null) {
                     Get.toNamed(Routes.SIGNIN);
                   } else {
                     // Get.to(() => AccountScreen());
@@ -125,9 +86,43 @@ class MainScreen extends StatelessWidget {
             )
           ],
         ),
-        body: Navigator(
-            key: Get.nestedKey(1),
-            initialRoute: Routes.HOME,
-            onGenerateRoute: _controller.onGenerateRoute));
+        body: PageView(
+          controller: _controller.pageController,
+          onPageChanged: _controller.animateToTab,
+          physics: const BouncingScrollPhysics(),
+          children: [..._controller.pages],
+        ));
+  }
+
+  Widget _bottomAppBarItem(BuildContext context,
+      {required icon, required page, required label}) {
+    return ZoomTapAnimation(
+      onTap: () => _controller.goToTab(page),
+      child: Container(
+        color: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color:
+                  _controller.currentIndex == page ? Colors.teal : Colors.grey,
+              size: 20,
+            ),
+            Text(
+              label,
+              style: TextStyle(
+                  color: _controller.currentIndex == page
+                      ? Colors.teal
+                      : Colors.grey,
+                  fontSize: 13,
+                  fontWeight: _controller.currentIndex == page
+                      ? FontWeight.w600
+                      : null),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

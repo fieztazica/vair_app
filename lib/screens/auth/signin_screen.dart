@@ -1,73 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vair_app/controllers/auth_controller.dart';
-import 'package:vair_app/controllers/auth_provider.dart';
-import 'package:vair_app/models/User.dart';
+import 'package:vair_app/controllers/signin_screen_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
-import 'package:vair_app/shared/const_keys.dart';
-
-class SigninScreenController extends GetxController {
-  final GlobalKey<FormState> formKey = GlobalKey();
-
-  final FocusNode focusNodePassword = FocusNode();
-  final TextEditingController controllerUsername = TextEditingController();
-  final TextEditingController controllerPassword = TextEditingController();
-  final AuthController authController = AuthController();
-  final AuthProvider authProvider = AuthProvider();
-
-  var obscurePassword = true.obs;
-
-  void triggerObscurePassword() {
-    obscurePassword.value = !obscurePassword.value;
-  }
-
-  Future<void> loginWithEmail() async {
-    try {
-      var response = await authProvider.localLogin(
-          controllerUsername.text.trim(), controllerPassword.text);
-
-      if (response.statusCode == 200) {
-        var token = response.body["jwt"];
-        var user = response.body["user"];
-        authController.isUserSignedIn.value = true;
-        authController.authUser.value = User.fromJson(response.body);
-        await authProvider.box.write(ConstKeys.strapiToken.name, token);
-        await authProvider.box.write(ConstKeys.user.name, user);
-
-        controllerUsername.clear();
-        controllerPassword.clear();
-        Get.offAllNamed(Routes.MAIN);
-      } else {
-        throw (response.body)["error"]["message"] ?? "Unknown Error Occured";
-      }
-    } catch (error) {
-      // Get.back();
-
-      authController.isUserSignedIn.value = false;
-      showDialog(
-          context: Get.context!,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text('Error'),
-              contentPadding: EdgeInsets.all(20),
-              children: [Text(error.toString())],
-            );
-          });
-    }
-  }
-
-  @override
-  void onClose() {
-    controllerUsername.dispose();
-    controllerPassword.dispose();
-    focusNodePassword.dispose();
-    super.onClose();
-  }
-}
 
 class SigninScreen extends StatelessWidget {
-  final controller = Get.put(SigninScreenController());
-  final authController = Get.put(AuthController());
+  final controller = Get.find<SigninScreenController>();
 
   SigninScreen({Key? key}) : super(key: key);
 
@@ -84,7 +21,7 @@ class SigninScreen extends StatelessWidget {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              const SizedBox(height: 150),
+              const SizedBox(height: 10),
               Text(
                 "Welcome back",
                 style: Theme.of(context).textTheme.headlineLarge,
@@ -94,7 +31,7 @@ class SigninScreen extends StatelessWidget {
                 "Login to your account",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: controller.controllerUsername,
                 keyboardType: TextInputType.name,
@@ -145,7 +82,7 @@ class SigninScreen extends StatelessWidget {
                       return null;
                     },
                   )),
-              const SizedBox(height: 60),
+              const SizedBox(height: 20),
               Column(
                 children: [
                   ElevatedButton(

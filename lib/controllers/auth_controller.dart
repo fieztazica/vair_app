@@ -1,25 +1,42 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:vair_app/models/User.dart';
+import 'package:vair_app/helpers/box.dart';
+import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
 class AuthController extends GetxController {
-  var isUserSignedIn = false.obs;
-  Rxn<User?> authUser = Rxn<Null>();
+  Rxn<AuthUser> authUser = Rxn<AuthUser>();
 
-  final box = GetStorage();
+  final box = Box();
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-    User? user = box.read(ConstKeys.user.name);
-    String? strapiToken = box.read(ConstKeys.strapiToken.name);
-    if (user != null) {
-      authUser.value = user;
-    }
-    if (strapiToken != null && strapiToken.isNotEmpty) {
-      isUserSignedIn.value = true;
-    }
+    box.disposeListen = box.def.listen(() {
+      getAuthUserFromBox();
+    });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    box.disposeListen?.call();
+  }
+
+  set setAuthUser(AuthUser data) {
+    authUser.value = data;
+  }
+
+  getAuthUserFromBox() {
+    authUser.value = box.authUser;
+    print("getAuthUserFromBox");
+    print(authUser.value);
+  }
+
+  signOut() {
+    box.def.remove(ConstKeys.authUser.name);
+  }
+
+  reset() {
+    authUser.value = null;
   }
 }
