@@ -4,7 +4,7 @@ import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/shared/const_data.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({Key? key});
+  const ProductDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
