@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/models/AuthUser.dart';
 import 'package:vair_app/shared/const_keys.dart';
 
@@ -23,5 +21,5 @@ class Box {
     def.write(ConstKeys.authUser.name, data);
   }
 
-  
+
 }
