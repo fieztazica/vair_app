@@ -9,7 +9,7 @@ class MainScreenController extends GetxController {
   var currentIndex = 0.obs;
 
   List<Widget> pages = <Widget>[
-    const HomeTab(),
+    HomeTab(),
     const LibraryTab(),
     ProfileTab()
   ];

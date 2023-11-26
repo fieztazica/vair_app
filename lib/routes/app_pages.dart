@@ -23,7 +23,7 @@ class AppPages {
         bindings: [MainScreenBindings(), RootBindings()]),
     GetPage(
       name: Routes.DETAIL,
-      page: () => const ProductDetailScreen(),
+      page: () => ProductDetailScreen(),
       bindings: [ProductBindings(), AuthBindings()],
     ),
     GetPage(

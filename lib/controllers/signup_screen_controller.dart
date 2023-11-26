@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vair_app/helpers/box.dart';
 import 'package:vair_app/providers/auth_provider.dart';
 import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/shared/const_keys.dart';
@@ -17,6 +18,7 @@ class SignupScreenController extends GetxController {
       TextEditingController();
 
   final AuthProvider authProvider = Get.put(AuthProvider());
+  final Box box = Box();
 
   var obscurePassword = true.obs;
 
@@ -48,7 +50,7 @@ class SignupScreenController extends GetxController {
       if (response.statusCode == 200) {
         // var token = response.body['token'];
         // var user = response.body['user'];
-        await authProvider.box.write(ConstKeys.authUser.name, response.body);
+        await box.def.write(ConstKeys.authUser.name, response.body);
 
         controllerUsername.clear();
         controllerPassword.clear();
