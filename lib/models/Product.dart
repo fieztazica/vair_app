@@ -11,6 +11,8 @@ class Product {
   String? createdAt;
   String? updatedAt;
   String? publishedAt;
+  String? downloadUrl;
+  String? downloadCount;
   List<Asset>? banners;
   Asset? logo;
   List<Category>? categories;
@@ -25,6 +27,8 @@ class Product {
       this.createdAt,
       this.updatedAt,
       this.publishedAt,
+      this.downloadUrl,
+      this.downloadCount,
       this.banners,
       this.logo,
       this.categories,
@@ -39,6 +43,8 @@ class Product {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     publishedAt = json['publishedAt'];
+    downloadUrl = json['downloadUrl'];
+    downloadCount = json['downloadCount'];
     if (json['banners'] != null) {
       banners = <Asset>[];
       json['banners'].forEach((v) {
@@ -69,6 +75,8 @@ class Product {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['publishedAt'] = publishedAt;
+    data['downloadUrl'] = downloadUrl;
+    data['downloadCount'] = downloadCount;
     if (banners != null) {
       data['banners'] = banners!.map((v) => v.toJson()).toList();
     }

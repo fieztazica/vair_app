@@ -23,6 +23,14 @@ class ProductDetailScreen extends StatelessWidget {
       ),
     );
 
+    var publisherName = prod.publisher?.name ?? "Unknown Publisher";
+    var developerName = prod.developer?.name ?? "Unknown Developer";
+    var installButtonText = prod.downloadUrl != null
+        ? prod.price! > 0
+            ? '${prod.price?.toStringAsFixed(2)} VND'
+            : "Install"
+        : "Error";
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -58,7 +66,7 @@ class ProductDetailScreen extends StatelessWidget {
                         children: [
                           ListTile(
                             title: Text(prod.name!),
-                            subtitle: const Text("Vair Inc."),
+                            subtitle: Text("$publisherName, $developerName"),
                           ),
                         ],
                       ),
@@ -74,11 +82,7 @@ class ProductDetailScreen extends StatelessWidget {
                     minimumSize: MaterialStateProperty.all(const Size(
                         double.infinity, 35)), // Adjust the height as needed
                   ),
-                  child: Text(
-                    prod.price! <= 0
-                        ? 'Install'
-                        : '${prod.price?.toStringAsFixed(2)} VND',
-                  ),
+                  child: Text(installButtonText),
                 ),
               ),
               const SizedBox(height: 10),
