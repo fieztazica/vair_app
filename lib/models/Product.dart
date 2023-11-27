@@ -1,4 +1,7 @@
 import 'package:vair_app/models/Asset.dart';
+import 'package:vair_app/models/Category.dart';
+import 'package:vair_app/models/Developer.dart';
+import 'package:vair_app/models/Publisher.dart';
 
 class Product {
   int? id;
@@ -10,6 +13,9 @@ class Product {
   String? publishedAt;
   List<Asset>? banners;
   Asset? logo;
+  List<Category>? categories;
+  Developer? developer;
+  Publisher? publisher;
 
   Product(
       {this.id,
@@ -20,7 +26,10 @@ class Product {
       this.updatedAt,
       this.publishedAt,
       this.banners,
-      this.logo});
+      this.logo,
+      this.categories,
+      this.developer,
+      this.publisher});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -37,6 +46,18 @@ class Product {
       });
     }
     logo = json['logo'] != null ? Asset.fromJson(json['logo']) : null;
+    if (json['categories'] != null) {
+      categories = <Category>[];
+      json['categories'].forEach((v) {
+        categories!.add(Category.fromJson(v));
+      });
+    }
+    developer = json['developer'] != null
+        ? Developer.fromJson(json['developer'])
+        : null;
+    publisher = json['publisher'] != null
+        ? Publisher.fromJson(json['publisher'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +74,15 @@ class Product {
     }
     if (logo != null) {
       data['logo'] = logo!.toJson();
+    }
+    if (categories != null) {
+      data['categories'] = categories!.map((v) => v.toJson()).toList();
+    }
+    if (developer != null) {
+      data['developer'] = developer!.toJson();
+    }
+    if (publisher != null) {
+      data['publisher'] = publisher!.toJson();
     }
     return data;
   }
