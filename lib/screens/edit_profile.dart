@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

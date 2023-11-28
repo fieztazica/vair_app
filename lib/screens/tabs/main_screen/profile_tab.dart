@@ -5,7 +5,7 @@ import 'package:vair_app/helpers/box.dart';
 import 'package:vair_app/screens/edit_profile.dart';
 
 class ProfileTab extends StatelessWidget {
-  final _authController = Get.find<AuthController>();
+  final _authController = Get.put(AuthController());
   final box = Box();
 
   ProfileTab({Key? key}) : super(key: key);
@@ -31,8 +31,9 @@ class ProfileTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    _authController.authUser.value?.user?.username ??
-                        'Sign in to see your account detail',
+                    box.authUser?.user?.username ??
+                        "Not found"
+                            'Sign in to see your account detail',
                     style: const TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -40,7 +41,7 @@ class ProfileTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    _authController.authUser.value?.user?.email ?? '',
+                    box.authUser?.user?.email ?? "Not found",
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(height: 16.0),
