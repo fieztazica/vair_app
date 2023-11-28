@@ -94,4 +94,10 @@ class Product {
     }
     return data;
   }
+
+  String get subtitle {
+    var publisherName = publisher?.name ?? "Unknown Publisher";
+    var developerName = developer?.name ?? "Unknown Developer";
+    return "$publisherName, $developerName";
+  }
 }

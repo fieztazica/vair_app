@@ -12,25 +12,6 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String productId = Get.parameters['id'] ?? "";
-
-    Product prod = exampleProducts.firstWhere(
-      (element) => element.name == productId,
-      orElse: () => Product(
-        name: 'Product Not Found',
-        description: 'Description Not Available',
-        price: 0.0,
-      ),
-    );
-
-    var publisherName = prod.publisher?.name ?? "Unknown Publisher";
-    var developerName = prod.developer?.name ?? "Unknown Developer";
-    var installButtonText = prod.downloadUrl != null
-        ? prod.price! > 0
-            ? '${prod.price?.toStringAsFixed(2)} VND'
-            : "Install"
-        : "Error";
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -41,77 +22,87 @@ class ProductDetailScreen extends StatelessWidget {
           IconButton(onPressed: () => {}, icon: const Icon(Icons.search))
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (prod.logo != null)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      prod.logo!.url!,
-                      height: 80, // Adjust the height as needed
-                      width: 80, // Adjust the width as needed
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ), // Add spacing between image and name
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            title: Text(prod.name!),
-                            subtitle: Text("$publisherName, $developerName"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(
-                        double.infinity, 35)), // Adjust the height as needed
-                  ),
-                  child: Text(installButtonText),
-                ),
-              ),
-              const SizedBox(height: 10),
-              if (prod.banners != null && prod.banners!.isNotEmpty)
-                Container(
-                  height: 200,
-                  child: PageView.builder(
-                    itemCount: prod.banners!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                        child: Image.network(
-                          prod.banners![index].url!,
-                          fit: BoxFit.cover,
+      body: _controller.obx(
+          (state) => SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (state!.logo != null)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.network(
+                              state.logo!.url!,
+                              height: 80, // Adjust the height as needed
+                              width: 80, // Adjust the width as needed
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ), // Add spacing between image and name
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ListTile(
+                                    title: Text(state.name!),
+                                    subtitle: Text(state.subtitle),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            minimumSize: MaterialStateProperty.all(const Size(
+                                double.infinity,
+                                35)), // Adjust the height as needed
+                          ),
+                          child: Text(state.downloadUrl != null
+                              ? state.price! > 0
+                                  ? '${state.price?.toStringAsFixed(2)} VND'
+                                  : "Install"
+                              : "Error"),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      if (state.banners != null && state.banners!.isNotEmpty)
+                        Container(
+                          height: 200,
+                          child: PageView.builder(
+                            itemCount: state.banners!.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 3.0),
+                                child: Image.network(
+                                  state.banners![index].url!,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      const SizedBox(height: 10),
+                      ListTile(
+                        contentPadding: const EdgeInsets.all(0),
+                        title: const Text('Description'),
+                        subtitle: Text(state.description!),
+                      ),
+                    ],
                   ),
                 ),
-              const SizedBox(height: 10),
-              ListTile(
-                contentPadding: const EdgeInsets.all(0),
-                title: const Text('Description'),
-                subtitle: Text(prod.description!),
               ),
-            ],
-          ),
-        ),
-      ),
+          onLoading: const Text("Fetching data..."),
+          onEmpty: const Text("No data found"),
+          onError: (error) => Text(error!)),
     );
   }
 }

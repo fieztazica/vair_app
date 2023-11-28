@@ -6,7 +6,7 @@ class GetBaseProvider extends GetConnect {
 
   void addAuthenticator() {
     var authUser = box.authUser;
-    if (authUser != null && authUser?.jwt != null) {
+    if (authUser != null && authUser.jwt != null) {
       httpClient.addAuthenticator<dynamic>((request) async {
         final token = box.authUser!.jwt!;
         // Set the header
