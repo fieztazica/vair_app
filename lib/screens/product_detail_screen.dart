@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/product_detail_screen_controller.dart';
@@ -27,14 +28,14 @@ class ProductDetailScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       if (state!.logo != null)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.network(
-                              state.logo!.url!,
+                            CachedNetworkImage(
+                              imageUrl: state.logo!.uri.toString(),
                               height: 80, // Adjust the height as needed
                               width: 80, // Adjust the width as needed
                               fit: BoxFit.cover,
@@ -82,8 +83,9 @@ class ProductDetailScreen extends StatelessWidget {
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 3.0),
-                                child: Image.network(
-                                  state.banners![index].url!,
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      state.banners![index].uri.toString(),
                                   fit: BoxFit.cover,
                                 ),
                               );
@@ -100,7 +102,8 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-          onLoading: const Text("Fetching data..."),
+          onLoading: const Padding(
+              padding: EdgeInsets.all(30), child: CircularProgressIndicator()),
           onEmpty: const Text("No data found"),
           onError: (error) => Text(error!)),
     );

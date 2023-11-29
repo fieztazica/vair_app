@@ -22,6 +22,7 @@ class HorizontalProductList extends StatelessWidget {
                 child: Row(
                     children: List.generate(items.length, (index) {
                   return ProductCard(
+                    id: items[index].id!,
                     name: items[index].name!,
                     description: items[index].description!,
                     price: items[index].price!,

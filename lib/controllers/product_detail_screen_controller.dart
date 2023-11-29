@@ -18,18 +18,20 @@ class ProductDetailScreenController extends GetxController
     try {
       change(null, status: RxStatus.loading());
       String? productId = Get.parameters["id"];
-      var res = await productProvider.getProducts<Product>("/$productId");
+      var res = await productProvider.getProducts<Product>(
+          "/$productId", Product.fromJson);
 
-      if (res.statusCode == 200) {
+      if (res.statusCode == 200 && res.body != null) {
         if (res.body?.data == null) {
           throw "Empty Response";
         }
 
-        change(res.body!.data!, status: RxStatus.success());
+        change(res.body?.data, status: RxStatus.success());
       } else {
-        throw (res.body)!.error!.message ?? "Unknown Error Occurred";
+        throw res.body?.error?.message ?? "Unknown Error Occurred";
       }
     } catch (e) {
+      print(e);
       change(null, status: RxStatus.error("$e"));
     }
   }

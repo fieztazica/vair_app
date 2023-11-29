@@ -4,15 +4,17 @@ import 'package:get/get.dart';
 import 'package:vair_app/routes/app_pages.dart';
 
 class ProductCard extends StatelessWidget {
+  final int id;
   final String name;
   final String description;
-  final double price;
+  final num price;
   final String logoUrl;
   final String bannerUrl;
   final bool bought;
 
   const ProductCard(
       {super.key,
+      required this.id,
       required this.name,
       required this.description,
       required this.price,
@@ -21,7 +23,7 @@ class ProductCard extends StatelessWidget {
       this.bought = false});
 
   void _onTap() {
-    Get.toNamed(Routes.DETAIL, parameters: {"id": name}); //
+    Get.toNamed(Routes.DETAIL, parameters: {"id": id.toString()}); //
   }
 
   @override

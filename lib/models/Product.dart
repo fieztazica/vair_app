@@ -7,7 +7,7 @@ class Product {
   int? id;
   String? name;
   String? description;
-  double? price;
+  num? price;
   String? createdAt;
   String? updatedAt;
   String? publishedAt;

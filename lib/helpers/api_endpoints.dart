@@ -1,6 +1,8 @@
 class ApiEndPoints {
-  static const String strapiBaseApiURL = 'https://strapi.vair.nyte.tk/api';
-  static const String expressBaseApiURL = "https://express.vair.nyte.tk/api";
+  static const String strapiBaseUrl = "https://strapi.vair.nyte.tk";
+  static const String expressBaseUrl = "http://192.168.100.5:5000";
+  static const String strapiBaseApiURL = '$strapiBaseUrl/api';
+  static const String expressBaseApiURL = "$expressBaseUrl/api";
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
   static _ProductEndPoints productEndPoints = _ProductEndPoints();
 }

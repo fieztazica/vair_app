@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:vair_app/helpers/api_endpoints.dart';
+import 'package:vair_app/helpers/app_converter.dart';
 import 'package:vair_app/models/StrapiRes.dart';
 import 'package:vair_app/shared/GetBaseProvider.dart';
 
@@ -11,5 +12,7 @@ class ProductProvider extends GetBaseProvider {
     super.addAuthenticator();
   }
 
-  Future<Response<StrapiRes<T>>> getProducts<T>(String path) => get(path);
+  Future<Response<StrapiRes<T>>> getProducts<T>(
+          String path, Function decoder) =>
+      get(path, decoder: (input) => StrapiRes.fromJson(input, decoder));
 }

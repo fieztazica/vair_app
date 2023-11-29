@@ -1,3 +1,4 @@
+import 'package:vair_app/helpers/api_endpoints.dart';
 import 'package:vair_app/models/Formats.dart';
 
 class Asset {
@@ -81,5 +82,10 @@ class Asset {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     return data;
+  }
+
+  Uri? get uri {
+    if (url == null) return null;
+    return Uri.parse("${ApiEndPoints.strapiBaseUrl}$url");
   }
 }
