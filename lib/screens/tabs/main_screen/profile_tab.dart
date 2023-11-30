@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/helpers/box.dart';
+import 'package:vair_app/screens/edit_profile.dart';
 
 class ProfileTab extends StatelessWidget {
   final _authController = Get.put(AuthController());
@@ -13,17 +14,53 @@ class ProfileTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
-      body: ListView(
-        children: [
-          if (_authController.authUser.value != null)
-            Obx(() => Text(
-                _authController.authUser.value?.user?.id.toString() ??
-                    'Sign in to see your account detail')),
-          Obx(() => Text(_authController.authUser.value?.user?.username ??
-              "Unauthorized")),
-          Text(box.authUser?.user?.username ?? "Not found")
-        ],
-      ),
+      body: Obx(() {
+        if (_authController.authUser.value != null) {
+          return ListView(
+            padding: const EdgeInsets.all(16.0),
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
+                      'https://cdn.discordapp.com/attachments/1176848867824783361/1178968688821542962/OIP.jpg?ex=65781327&is=65659e27&hm=43d0441711490e1bdfb9564e9b4ed839d61546a6aab4933f834ac57e993d816e&',
+                    ),
+                    backgroundColor: Colors.grey,
+                  ),
+                  const SizedBox(height: 16.0),
+                  Text(
+                    box.authUser?.user?.username ??
+                        "Not found"
+                            'Sign in to see your account detail',
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    box.authUser?.user?.email ?? "Not found",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => EditProfileScreen());
+                    },
+                    child: const Text('Edit Profile'),
+                  ),
+                ],
+              ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: Text("Unauthorized"),
+          );
+        }
+      }),
     );
   }
 }
