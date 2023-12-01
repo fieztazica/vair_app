@@ -9,7 +9,19 @@ class ProductProvider extends GetBaseProvider {
   void onInit() {
     super.onInit();
     httpClient.baseUrl = '${ApiEndPoints.expressBaseApiURL}/products';
-    super.addAuthenticator();
+    // super.addAuthenticator();
+    httpClient.addAuthenticator<dynamic>((request) async {
+      final token = box.authUser!.jwt;
+      print(token);
+      if (token != null && token.isNotEmpty) {
+        request.headers['Authorization'] = "Bearer $token";
+      }
+      return request;
+    });
+
+    //Autenticator will be called 3 times if HttpStatus is
+    //HttpStatus.unauthorized
+    httpClient.maxAuthRetries = 3;
   }
 
   Future<Response<StrapiRes<T>>> getProducts<T>(

@@ -5,15 +5,14 @@ class GetBaseProvider extends GetConnect {
   final box = Box();
 
   void addAuthenticator() {
-    var authUser = box.authUser;
-    if (authUser != null && authUser.jwt != null) {
-      httpClient.addAuthenticator<dynamic>((request) async {
-        final token = box.authUser!.jwt!;
-        // Set the header
+    httpClient.addAuthenticator<dynamic>((request) async {
+      final token = box.authUser!.jwt;
+      print(token);
+      if (token != null && token.isNotEmpty) {
         request.headers['Authorization'] = "Bearer $token";
-        return request;
-      });
-    }
+      }
+      return request;
+    });
 
     //Autenticator will be called 3 times if HttpStatus is
     //HttpStatus.unauthorized
@@ -26,6 +25,7 @@ class GetBaseProvider extends GetConnect {
 
   void addRequestModifier() {
     httpClient.addRequestModifier<dynamic>((request) {
+      print("addRequestModifier");
       request.headers['Content-Type'] = 'application/json';
       return request;
     });
