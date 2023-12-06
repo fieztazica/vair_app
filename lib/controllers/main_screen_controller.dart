@@ -8,11 +8,7 @@ class MainScreenController extends GetxController {
   late PageController pageController;
   var currentIndex = 0.obs;
 
-  List<Widget> pages = <Widget>[
-    HomeTab(),
-    const LibraryTab(),
-    ProfileTab()
-  ];
+  List<Widget> pages = <Widget>[HomeTab(), LibraryTab(), ProfileTab()];
 
   void goToTab(int page) {
     currentIndex.value = page;
