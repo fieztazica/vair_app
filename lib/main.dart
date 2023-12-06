@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:vair_app/bindings/RootBindings.dart';
 import 'package:vair_app/controllers/auth_controller.dart';
 import 'package:vair_app/routes/app_pages.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ Future<void> main() async {
 
 Future<void> initServices() async {
   print('starting services ...');
+  await dotenv.load(fileName: ".env");
 
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
