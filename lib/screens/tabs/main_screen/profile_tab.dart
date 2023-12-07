@@ -57,7 +57,7 @@ class ProfileTab extends StatelessWidget {
           );
         } else {
           return const Center(
-            child: Text("Unauthorized"),
+            child: Text("Unauthorized! Click top right icon to signin"),
           );
         }
       }),
