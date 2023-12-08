@@ -66,6 +66,8 @@ class Product {
         : null;
   }
 
+  get error => null;
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -100,4 +102,6 @@ class Product {
     var developerName = developer?.name ?? "Unknown Developer";
     return "$publisherName, $developerName";
   }
+
+  static fromJsonList(data) {}
 }
