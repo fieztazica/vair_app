@@ -1,3 +1,4 @@
+import 'package:vair_app/models/Feedback.dart';
 import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/models/User.dart';
 
@@ -11,7 +12,7 @@ class Bought {
   String? updatedAt;
   String? publishedAt;
   User? usersPermissionsUser;
-  Null? feedback;
+  Feedback? feedback;
   Product? product;
 
   Bought(

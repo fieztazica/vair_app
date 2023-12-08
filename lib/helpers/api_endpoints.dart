@@ -20,4 +20,12 @@ class _ProductEndPoints {
   static const String basePath = "products";
 
   final String featuredProducts = "$basePath/featured";
+
+  String buy(int productId) {
+    return "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/buy";
+  }
+
+  String download(int productId) {
+    return "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/download";
+  }
 }
