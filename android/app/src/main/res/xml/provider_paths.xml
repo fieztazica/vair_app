@@ -6,4 +6,6 @@
   <cache-path name="cache" path="." />
   <external-cache-path name="external_cache" path="." />
   <files-path name="files" path="." />
+  <!-- <external-path path="Android/data/com.nyte.vair_app/" name="files_root" /> -->
+<external-path path="." name="external_storage_root" />
 </paths>

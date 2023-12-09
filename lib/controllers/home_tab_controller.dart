@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:vair_app/helpers/api_endpoints.dart';
 import 'package:vair_app/models/Product.dart';
 
 class HomeTabController extends GetxController with StateMixin<List<Product>> {
@@ -16,8 +17,8 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
     try {
       change(null, status: RxStatus.loading());
 
-      var res =
-          await get(Uri.parse('https://express.vair.nyte.tk/api/products'));
+      var res = await get(Uri.parse(
+          "${ApiEndPoints.expressBaseApiURL}/${ApiEndPoints.productEndPoints.base()}"));
 
       print("API Response: ${res.statusCode} - ${res.body}");
 

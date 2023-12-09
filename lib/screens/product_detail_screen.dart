@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/product_detail_screen_controller.dart';
 
@@ -57,19 +58,28 @@ class ProductDetailScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _controller.token.value != null
-                              ? _controller.installClick
-                              : null,
-                          onLongPress: null,
-                          style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(const Size(
-                                double.infinity,
-                                35)), // Adjust the height as needed
-                          ),
-                          child: Obx(
-                              () => Text("${_controller.installButtonText}")),
-                        ),
+                        child: Obx(() => _controller.downloadStatus.value ==
+                                    DownloadTaskStatus.running ||
+                                (_controller.isInstalling.isTrue &&
+                                    _controller.isInstalled.isFalse)
+                            ? LinearProgressIndicator(
+                                value: _controller.downloadProgress.value > 0
+                                    ? (_controller.downloadProgress.value / 100)
+                                        .toDouble()
+                                    : null,
+                              )
+                            : ElevatedButton(
+                                onPressed: _controller.token.value != null
+                                    ? _controller.installClick
+                                    : null,
+                                onLongPress: null,
+                                style: ButtonStyle(
+                                  minimumSize: MaterialStateProperty.all(
+                                      const Size(double.infinity,
+                                          35)), // Adjust the height as needed
+                                ),
+                                child: Text("${_controller.installButtonText}"),
+                              )),
                       ),
                       const SizedBox(height: 10),
                       if (state.banners != null && state.banners!.isNotEmpty)

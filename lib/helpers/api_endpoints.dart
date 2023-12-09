@@ -21,11 +21,10 @@ class _ProductEndPoints {
 
   final String featuredProducts = "$basePath/featured";
 
-  String buy(int productId) {
-    return "/$productId/buy";
-  }
+  String base() => basePath;
 
-  String download(int productId) {
-    return "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/download";
-  }
+  String buy(int productId) => "/$productId/buy";
+
+  String download(int productId) =>
+      "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/download";
 }
