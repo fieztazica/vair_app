@@ -44,6 +44,10 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
     }
   }
 
+  Future<void> refreshData() async {
+    getData();
+  }
+
   void onClose() {
     super.onClose();
     change(null, status: RxStatus.empty());

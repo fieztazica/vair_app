@@ -9,10 +9,17 @@ class HomeTab extends StatelessWidget {
 
   HomeTab({Key? key});
 
+  Future<void> _refresh() async {
+    await _homeTabController.refreshData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return _homeTabController.obx(
-      (state) => _buildProductLists(state!.cast<Product>()),
+      (state) => RefreshIndicator(
+        onRefresh: _refresh,
+        child: _buildProductLists(state!.cast<Product>()),
+      ),
       onLoading: const Center(
         child: CircularProgressIndicator(),
       ),
@@ -26,22 +33,26 @@ class HomeTab extends StatelessWidget {
   }
 
   Widget _buildProductLists(List<Product> products) {
+    List<Product> shuffledProducts1 = List.from(products)..shuffle();
+    List<Product> shuffledProducts2 = List.from(products)..shuffle();
+    List<Product> shuffledProducts3 = List.from(products)..shuffle();
+    List<Product> shuffledProducts4 = List.from(products)..shuffle();
     return ListView(
       children: [
         HorizontalProductList(
-          items: products,
+          items: shuffledProducts1,
           title: "Featured & Recommended",
         ),
         HorizontalProductList(
-          items: products,
+          items: shuffledProducts2,
           title: 'Suggested',
         ),
         HorizontalProductList(
-          items: products,
+          items: shuffledProducts3,
           title: 'Actions',
         ),
         HorizontalProductList(
-          items: products,
+          items: shuffledProducts4,
           title: 'Indie games',
         ),
       ],
