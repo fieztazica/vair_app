@@ -26,14 +26,8 @@ class HorizontalProductList extends StatelessWidget {
                   description: items[index].description!,
                   price: items[index].price!,
                   logoUrl:
-                      "https://strapi.vair.nyte.tk${items[index].logo?.url}" ??
-                          '', // Handle null case
-                  bannerUrl: items[index]
-                          .banners
-                          ?.first
-                          ?.formats
-                          ?.thumbnail
-                          ?.url ??
+                      "${items[index].logo?.uri}" ?? '', // Handle null case
+                  bannerUrl: items[index].banners?.first?.uri.toString() ??
                       'https://cdn.discordapp.com/attachments/1158760585027133450/1180429985266282567/image.png?ex=657d6417&is=656aef17&hm=1e1df53c211838d7b640eb6a43a94549cf7f40c894aeafca01a40c52bb57d72e&', // Handle null case
                 );
               }),

@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/product_detail_screen_controller.dart';
-import 'package:vair_app/models/Product.dart';
-import 'package:vair_app/shared/const_data.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final ProductDetailScreenController _controller =
@@ -60,17 +58,17 @@ class ProductDetailScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _controller.token.value != null
+                              ? _controller.installClick
+                              : null,
+                          onLongPress: null,
                           style: ButtonStyle(
                             minimumSize: MaterialStateProperty.all(const Size(
                                 double.infinity,
                                 35)), // Adjust the height as needed
                           ),
-                          child: Text(state.downloadUrl != null
-                              ? state.price! > 0
-                                  ? '${state.price?.toStringAsFixed(2)} VND'
-                                  : "Install"
-                              : "Error"),
+                          child: Obx(
+                              () => Text("${_controller.installButtonText}")),
                         ),
                       ),
                       const SizedBox(height: 10),

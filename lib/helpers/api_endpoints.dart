@@ -22,7 +22,7 @@ class _ProductEndPoints {
   final String featuredProducts = "$basePath/featured";
 
   String buy(int productId) {
-    return "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/buy";
+    return "/$productId/buy";
   }
 
   String download(int productId) {

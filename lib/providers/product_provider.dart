@@ -29,6 +29,9 @@ class ProductProvider extends GetBaseProvider {
       get(path, decoder: (input) => StrapiRes.fromJson(input, decoder));
 
   Future<Response<StrapiRes<T>>> postProducts<T, K>(
-          String path, K body, Function decoder) =>
-      post(path, body, decoder: (input) => StrapiRes.fromJson(input, decoder));
+          String path, K body, Function decoder,
+          {Map<String, String>? headers}) =>
+      post(path, body,
+          headers: headers,
+          decoder: (input) => StrapiRes.fromJson(input, decoder));
 }
