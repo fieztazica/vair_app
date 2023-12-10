@@ -7,7 +7,7 @@ import 'package:vair_app/models/Product.dart';
 class HomeTab extends StatelessWidget {
   final HomeTabController _homeTabController = Get.put(HomeTabController());
 
-  HomeTab({Key? key});
+  HomeTab({Key? key}) : super(key: key);
 
   Future<void> _refresh() async {
     await _homeTabController.refreshData();
