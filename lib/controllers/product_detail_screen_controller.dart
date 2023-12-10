@@ -38,8 +38,9 @@ class ProductDetailScreenController extends GetxController
   }
 
   bool checkIsInstalled(Product prod) {
-    var res = libraryTabController.packageNames
-        .any((element) => element == prod.androidPackageName);
+    var res = libraryTabController.apps
+        .map((e) => e.packageName)
+        .contains(prod.androidPackageName);
     isInstalled.value = res;
     isInstalling.value = false;
     return res;
