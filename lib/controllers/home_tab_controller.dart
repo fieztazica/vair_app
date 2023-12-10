@@ -40,6 +40,7 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
         }
       } else {
         print("API Response: ${res?.statusCode} - ${res?.body}");
+        throw "API Response Failed: ${res.body}";
       }
     } catch (e) {
       print("Error in getData: $e");

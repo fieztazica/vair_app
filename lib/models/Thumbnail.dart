@@ -4,9 +4,9 @@ class Thumbnail {
   String? ext;
   String? mime;
   Null? path;
-  int? width;
-  int? height;
-  double? size;
+  num? width;
+  num? height;
+  num? size;
   String? url;
 
   Thumbnail(

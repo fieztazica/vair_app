@@ -15,21 +15,20 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _homeTabController.obx(
-      (state) => RefreshIndicator(
+    return RefreshIndicator(
         onRefresh: _refresh,
-        child: _buildProductLists(state!.cast<Product>()),
-      ),
-      onLoading: const Center(
-        child: CircularProgressIndicator(),
-      ),
-      onEmpty: const Center(
-        child: Text('No data available'),
-      ),
-      onError: (error) => Center(
-        child: Text('Error: $error'),
-      ),
-    );
+        child: _homeTabController.obx(
+          (state) => _buildProductLists(state!.cast<Product>()),
+          onLoading: const Center(
+            child: CircularProgressIndicator(),
+          ),
+          onEmpty: const Center(
+            child: Text('No data available'),
+          ),
+          onError: (error) => Center(
+            child: Text('Error: $error'),
+          ),
+        ));
   }
 
   Widget _buildProductLists(List<Product> products) {
