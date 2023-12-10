@@ -37,6 +37,13 @@ class ProductDetailScreenController extends GetxController
     token.value = productProvider.box.authUser?.jwt;
   }
 
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    getData(withLoading: false);
+  }
+
   bool checkIsInstalled(Product prod) {
     var res = libraryTabController.apps
         .map((e) => e.packageName)
@@ -46,9 +53,11 @@ class ProductDetailScreenController extends GetxController
     return res;
   }
 
-  void getData() async {
+  void getData({bool withLoading = true}) async {
     try {
-      change(null, status: RxStatus.loading());
+      if (withLoading) {
+        change(null, status: RxStatus.loading());
+      }
       String? productId = Get.parameters["id"];
       var res = await productProvider.getProducts<Product>(
           "/$productId", Product.fromJson);
