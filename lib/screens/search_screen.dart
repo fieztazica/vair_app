@@ -6,6 +6,7 @@ import 'package:vair_app/helpers/api_endpoints.dart';
 import 'search_result_screen.dart';
 
 class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
