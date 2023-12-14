@@ -33,7 +33,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.SEARCH,
-      page: () => const SearchScreen(),
+      page: () => SearchScreen(),
     ),
     GetPage(
         name: Routes.SIGNIN,
