@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/product_detail_screen_controller.dart';
+import 'package:vair_app/routes/app_pages.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final ProductDetailScreenController _controller =
@@ -18,9 +19,6 @@ class ProductDetailScreen extends StatelessWidget {
           onPressed: () => Get.back(),
           icon: const Icon(Icons.arrow_back),
         ),
-        actions: [
-          IconButton(onPressed: () => {}, icon: const Icon(Icons.search))
-        ],
       ),
       body: _controller.obx(
           (state) => SingleChildScrollView(

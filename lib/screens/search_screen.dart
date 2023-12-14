@@ -1,7 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:vair_app/helpers/api_endpoints.dart';
+import 'search_result_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -10,25 +12,34 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
-  List<dynamic> searchResults = [];
 
-  Future<void> _searchProducts(String query) async {
+  Future<List<dynamic>> _searchProducts(String query) async {
     try {
       final response = await http.get(
         Uri.parse(ApiEndPoints.productEndPoints.search(query)),
       );
 
       if (response.statusCode == 200) {
-        setState(() {
-          searchResults = json.decode(response.body)['data'];
-        });
+        print(json.decode(response.body)['data']);
+
+        return json.decode(response.body)['data'];
       } else {
         // Handle error
         print('Failed to load products');
+        return [];
       }
     } catch (error) {
       // Handle network error
       print('Network error: $error');
+      return [];
+    }
+  }
+
+  void _searchAndNavigate() async {
+    String query = _searchController.text;
+    if (query.isNotEmpty) {
+      List<dynamic> searchResults = await _searchProducts(query);
+      Get.to(() => SearchResultScreen(searchResults));
     }
   }
 
@@ -48,27 +59,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 labelText: 'Search Products',
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () {
-                    String query = _searchController.text;
-                    if (query.isNotEmpty) {
-                      _searchProducts(query);
-                    }
-                  },
+                  onPressed: _searchAndNavigate,
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: searchResults.length,
-              itemBuilder: (context, index) {
-                // Display your product information here
-                return ListTile(
-                  title: Text(searchResults[index]['name']),
-                  subtitle: Text('Price: \$${searchResults[index]['price']}'),
-                  // Add more information as needed
-                );
-              },
             ),
           ),
         ],
