@@ -18,6 +18,7 @@ class Product {
   List<Category>? categories;
   Developer? developer;
   Publisher? publisher;
+  String? androidPackageName;
 
   Product(
       {this.id,
@@ -33,7 +34,8 @@ class Product {
       this.logo,
       this.categories,
       this.developer,
-      this.publisher});
+      this.publisher,
+      this.androidPackageName});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -64,6 +66,7 @@ class Product {
     publisher = json['publisher'] != null
         ? Publisher.fromJson(json['publisher'])
         : null;
+    androidPackageName = json['android_package_name'];
   }
 
   get error => null;
@@ -94,6 +97,7 @@ class Product {
     if (publisher != null) {
       data['publisher'] = publisher!.toJson();
     }
+    data['android_package_name'] = androidPackageName;
     return data;
   }
 

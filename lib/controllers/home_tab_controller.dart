@@ -6,6 +6,8 @@ import 'package:vair_app/helpers/api_endpoints.dart';
 import 'package:vair_app/models/Product.dart';
 
 class HomeTabController extends GetxController with StateMixin<List<Product>> {
+  Rxn<List<Product>> products = Rxn();
+
   @override
   void onInit() {
     super.onInit();
@@ -20,7 +22,7 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
       var res = await get(Uri.parse(
           "${ApiEndPoints.expressBaseApiURL}/${ApiEndPoints.productEndPoints.base()}"));
 
-      print("API Response: ${res.statusCode} - ${res.body}");
+      // print("API Response: ${res.statusCode} - ${res.body}");
 
       if (res.statusCode == 200 && res.body != null) {
         var responseBody = json.decode(res.body);
@@ -31,12 +33,14 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
                 .map((dynamic item) => Product.fromJson(item)),
           );
           change(products, status: RxStatus.success());
+          this.products.value = products;
         } else {
           // Handle the case when the "data" field is not a list
           throw "Invalid response format: ${res.body}";
         }
       } else {
         print("API Response: ${res?.statusCode} - ${res?.body}");
+        throw "API Response Failed: ${res.body}";
       }
     } catch (e) {
       print("Error in getData: $e");

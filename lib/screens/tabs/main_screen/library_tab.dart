@@ -36,23 +36,23 @@ class LibraryTab extends StatelessWidget {
                             color: Colors.white),
                       ),
                     ),
-                    // footer: Container(
-                    //   padding: const EdgeInsets.all(5),
-                    //   color: Colors.teal[900]?.withOpacity(0.8),
-                    //   child: const Row(
-                    //     mainAxisAlignment: MainAxisAlignment.end,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       Text(
-                    //         "Installed",
-                    //         style: TextStyle(
-                    //             fontWeight: FontWeight.bold,
-                    //             fontSize: 14,
-                    //             color: Colors.white),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
+                    footer: Container(
+                      padding: const EdgeInsets.all(5),
+                      color: Colors.teal[900]?.withOpacity(0.8),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Installed",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
                     child: Container(
                       color: Colors.teal[300],
                       child: Image.memory(

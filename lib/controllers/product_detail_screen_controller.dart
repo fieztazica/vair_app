@@ -37,9 +37,27 @@ class ProductDetailScreenController extends GetxController
     token.value = productProvider.box.authUser?.jwt;
   }
 
-  void getData() async {
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    getData(withLoading: false);
+  }
+
+  bool checkIsInstalled(Product prod) {
+    var res = libraryTabController.apps
+        .map((e) => e.packageName)
+        .contains(prod.androidPackageName);
+    isInstalled.value = res;
+    isInstalling.value = false;
+    return res;
+  }
+
+  void getData({bool withLoading = true}) async {
     try {
-      change(null, status: RxStatus.loading());
+      if (withLoading) {
+        change(null, status: RxStatus.loading());
+      }
       String? productId = Get.parameters["id"];
       var res = await productProvider.getProducts<Product>(
           "/$productId", Product.fromJson);
@@ -59,6 +77,10 @@ class ProductDetailScreenController extends GetxController
               : "Install";
         }
 
+        if (checkIsInstalled(prod)) {
+          installButtonText.value = "Open";
+        }
+
         if (token.value == null) {
           installButtonText.value = "Sign in to download";
         }
@@ -73,6 +95,11 @@ class ProductDetailScreenController extends GetxController
 
   void installClick() async {
     try {
+      if (isInstalled.isTrue) {
+        InstalledApps.startApp(state!.androidPackageName!);
+        return;
+      }
+
       if (taskId != null) {
         var stringTaskId = taskId as String;
         switch (downloadStatus.value) {

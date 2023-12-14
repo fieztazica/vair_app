@@ -6,13 +6,13 @@ class Asset {
   String? name;
   String? alternativeText;
   String? caption;
-  int? width;
-  int? height;
+  num? width;
+  num? height;
   Formats? formats;
   String? hash;
   String? ext;
   String? mime;
-  double? size;
+  num? size;
   String? url;
   String? previewUrl;
   String? provider;
