@@ -24,7 +24,7 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
     try {
       change(null, status: RxStatus.loading());
 
-      var query = category.isEmpty ? "" : "?category=${category}";
+      var query = category == "All" ? "" : "?category=${category}";
 
       var res = await get(Uri.parse(
           "${ApiEndPoints.expressBaseApiURL}/${ApiEndPoints.productEndPoints.base()}$query"));
