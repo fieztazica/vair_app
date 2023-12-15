@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vair_app/controllers/home_tab_controller.dart';
+import 'package:vair_app/routes/app_pages.dart';
 import 'package:vair_app/widget/horizontal_product_list.dart';
 import 'package:vair_app/models/Product.dart';
 
@@ -66,20 +67,26 @@ class HomeTab extends StatelessWidget {
       print(products.length);
       if (products.isNotEmpty) {
         widgets = products
-            .map((e) => ListTile(
-                  title: Text(e.name!),
-                  subtitle: e.price! > 0
-                      ? Text(
-                          'VND ${e.price!.toStringAsFixed(2)}',
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      : const Text('Free'),
-                  leading: ClipOval(
-                    child: CachedNetworkImage(
-                      imageUrl: e.logo!.uri.toString(),
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.cover,
+            .map((e) => GestureDetector(
+                  onTap: () {
+                    Get.toNamed(Routes.DETAIL,
+                        parameters: {"id": e.id.toString()});
+                  },
+                  child: ListTile(
+                    title: Text(e.name!),
+                    subtitle: e.price! > 0
+                        ? Text(
+                            'VND ${e.price!.toStringAsFixed(2)}',
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : const Text('Free'),
+                    leading: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: e.logo!.uri.toString(),
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ))
