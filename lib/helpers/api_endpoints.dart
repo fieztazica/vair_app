@@ -27,4 +27,7 @@ class _ProductEndPoints {
 
   String download(int productId) =>
       "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/download";
+
+  String search(String query) =>
+      "${ApiEndPoints.expressBaseApiURL}/$basePath/search?q=$query";
 }
