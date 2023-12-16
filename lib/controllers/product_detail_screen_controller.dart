@@ -41,6 +41,7 @@ class ProductDetailScreenController extends GetxController
   void onReady() {
     // TODO: implement onReady
     super.onReady();
+    libraryTabController.getInstalledApps();
     getData(withLoading: false);
   }
 
