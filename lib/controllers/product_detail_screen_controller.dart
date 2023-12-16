@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -12,8 +13,8 @@ import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/providers/product_provider.dart';
 import 'package:open_filex/open_filex.dart';
 
-class ProductDetailScreenController extends GetxController
-    with StateMixin<Product> {
+class ProductDetailScreenController extends FullLifeCycleController
+    with StateMixin<Product>, FullLifeCycleMixin {
   final LibraryTabController libraryTabController =
       Get.put(LibraryTabController());
   final ProductProvider productProvider = Get.put(ProductProvider());
@@ -30,10 +31,7 @@ class ProductDetailScreenController extends GetxController
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    // FlutterDownloader.registerCallback(handleDownloaderCallback);
     change(null, status: RxStatus.empty());
-    getData();
-
     token.value = productProvider.box.authUser?.jwt;
   }
 
@@ -41,16 +39,29 @@ class ProductDetailScreenController extends GetxController
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    libraryTabController.getInstalledApps();
-    getData(withLoading: false);
+    getData();
   }
 
-  bool checkIsInstalled(Product prod) {
+  Future<bool> checkIsInstalled() async {
+    if (state == null) return false;
+    downloadProgress.value = -1;
+    isInstalling.value = true;
+    isInstalled.value = false;
+    await libraryTabController.getInstalledApps();
     var res = libraryTabController.apps
         .map((e) => e.packageName)
-        .contains(prod.androidPackageName);
+        .contains(state?.androidPackageName);
+    installButtonText.value = res ? "Open" : "Install";
     isInstalled.value = res;
     isInstalling.value = false;
+    return res;
+  }
+
+  bool checkIsSignedIn() {
+    var res = token.value != null;
+    if (!res) {
+      installButtonText.value = "Sign in to download";
+    }
     return res;
   }
 
@@ -78,13 +89,9 @@ class ProductDetailScreenController extends GetxController
               : "Install";
         }
 
-        if (checkIsInstalled(prod)) {
-          installButtonText.value = "Open";
-        }
+        checkIsInstalled();
 
-        if (token.value == null) {
-          installButtonText.value = "Sign in to download";
-        }
+        checkIsSignedIn();
       } else {
         throw res.body?.error?.message ?? "Unknown Error Occurred";
       }
@@ -114,7 +121,7 @@ class ProductDetailScreenController extends GetxController
         }
       }
 
-      if (token.value == null) {
+      if (!checkIsSignedIn()) {
         throw "Unauthorized";
       }
 
@@ -150,20 +157,22 @@ class ProductDetailScreenController extends GetxController
               downloadStatus.value = selectedTask.status;
               switch (downloadStatus.value) {
                 case DownloadTaskStatus.running:
-                  installButtonText.value =
-                      "${downloadProgress.value}% (Press to cancel)";
+                  isInstalling.value = true;
                   break;
                 case DownloadTaskStatus.complete:
                   waitTask = false;
+                  isInstalling.value = false;
                   filePath =
                       "/storage/emulated/0/Download/${selectedTask.filename}";
                   break;
                 case DownloadTaskStatus.canceled:
                 case DownloadTaskStatus.undefined:
                   installButtonText.value = "Install";
+                  isInstalling.value = false;
                   break;
                 case DownloadTaskStatus.failed:
                   installButtonText.value = "Retry";
+                  isInstalling.value = false;
                   break;
                 default:
                   break;
@@ -178,9 +187,8 @@ class ProductDetailScreenController extends GetxController
                 var openRes = await OpenFilex.open(filePath);
 
                 if (openRes.type == ResultType.done) {
-                  installButtonText.value = 'Installed';
                   isInstalling.value = true;
-                  // isInstalled.value = true;
+                  checkIsInstalled();
                 }
               }
             }
@@ -203,7 +211,34 @@ class ProductDetailScreenController extends GetxController
     change(null, status: RxStatus.empty());
   }
 
-  onDownloadFinished(String taskId) {
-    FlutterDownloader.open(taskId: taskId);
+  Future<void> onRefresh() async {
+    checkIsInstalled();
+    getData();
+  }
+
+  @override
+  void onDetached() {
+    // TODO: implement onDetached
+  }
+
+  @override
+  void onHidden() {
+    // TODO: implement onHidden
+  }
+
+  @override
+  void onInactive() {
+    // TODO: implement onInactive
+  }
+
+  @override
+  void onPaused() {
+    // TODO: implement onPaused
+  }
+
+  @override
+  void onResumed() {
+    // TODO: implement onResumed
+    checkIsInstalled();
   }
 }

@@ -24,7 +24,7 @@ class LibraryTabController extends GetxController
     });
   }
 
-  getInstalledApps() async {
+  Future<void> getInstalledApps() async {
     change(null, status: RxStatus.loading());
     if (packageNames.isNotEmpty) {
       apps = await InstalledApps.getInstalledApps(true, true);
