@@ -15,8 +15,6 @@ import 'package:open_filex/open_filex.dart';
 
 class ProductDetailScreenController extends FullLifeCycleController
     with StateMixin<Product>, FullLifeCycleMixin {
-  final LibraryTabController libraryTabController =
-      Get.put(LibraryTabController());
   final ProductProvider productProvider = Get.put(ProductProvider());
   var isInstalling = false.obs;
   var isInstalled = false.obs;
@@ -47,10 +45,8 @@ class ProductDetailScreenController extends FullLifeCycleController
     downloadProgress.value = -1;
     isInstalling.value = true;
     isInstalled.value = false;
-    await libraryTabController.getInstalledApps();
-    var res = libraryTabController.apps
-        .map((e) => e.packageName)
-        .contains(state?.androidPackageName);
+    var res =
+        await InstalledApps.isAppInstalled(state!.androidPackageName!) ?? false;
     installButtonText.value = res ? "Open" : "Install";
     isInstalled.value = res;
     isInstalling.value = false;
@@ -89,7 +85,7 @@ class ProductDetailScreenController extends FullLifeCycleController
               : "Install";
         }
 
-        checkIsInstalled();
+        await checkIsInstalled();
 
         checkIsSignedIn();
       } else {
