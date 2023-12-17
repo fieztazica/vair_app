@@ -41,7 +41,7 @@ class ProductDetailScreenController extends FullLifeCycleController
   }
 
   Future<bool> checkIsInstalled() async {
-    if (state == null) return false;
+    if (state == null || state?.androidPackageName == null) return false;
     downloadProgress.value = -1;
     isInstalling.value = true;
     isInstalled.value = false;
