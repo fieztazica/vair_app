@@ -26,7 +26,7 @@ class GetBaseProvider extends GetConnect {
   void addRequestModifier() {
     httpClient.addRequestModifier<dynamic>((request) {
       print("addRequestModifier");
-      request.headers['Content-Type'] = 'application/json';
+      request.headers['Content-Type'] = 'application/json; charset=UTF-8';
       return request;
     });
   }

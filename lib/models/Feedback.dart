@@ -51,3 +51,9 @@ class Feedback {
     return data;
   }
 }
+
+class FeedbackDto {
+  String? comment;
+  bool? recommend;
+  String? productId;
+}

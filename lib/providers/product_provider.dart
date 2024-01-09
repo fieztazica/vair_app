@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:vair_app/helpers/api_endpoints.dart';
-import 'package:vair_app/helpers/app_converter.dart';
 import 'package:vair_app/models/StrapiRes.dart';
 import 'package:vair_app/shared/GetBaseProvider.dart';
 

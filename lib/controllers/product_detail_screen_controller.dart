@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:installed_apps/installed_apps.dart';
@@ -9,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:vair_app/controllers/library_tab_controller.dart';
 import 'package:vair_app/helpers/api_endpoints.dart';
 import 'package:vair_app/models/Bought.dart';
+import 'package:vair_app/models/Feedback.dart';
 import 'package:vair_app/models/Product.dart';
 import 'package:vair_app/providers/product_provider.dart';
 import 'package:open_filex/open_filex.dart';
@@ -94,6 +95,29 @@ class ProductDetailScreenController extends FullLifeCycleController
     } catch (e) {
       print(e);
       change(null, status: RxStatus.error("$e"));
+    }
+  }
+
+  void postFeedback({bool withLoading = true}) async {
+    try {
+      String productId = Get.parameters["id"]!;
+      var res = await productProvider.postProducts<Feedback, FeedbackDto>(
+          ApiEndPoints.productEndPoints
+              .feedback(int.parse(productId), withBasePath: false),
+          {'comment': '', 'productId': '', 'recommend': true} as FeedbackDto,
+          Feedback.fromJson);
+
+      if (res.statusCode == 200 && res.body != null) {
+        if (res.body?.data == null) {
+          throw "Empty Response";
+        }
+
+        var feedback = res.body!.data!;
+      } else {
+        throw res.body?.error?.message ?? "Unknown Error Occurred";
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

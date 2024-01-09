@@ -19,15 +19,20 @@ class _AuthEndPoints {
 class _ProductEndPoints {
   static const String basePath = "products";
 
+  String expressBasePath() => "${ApiEndPoints.expressBaseApiURL}/$basePath";
+
   final String featuredProducts = "$basePath/featured";
 
   String base() => basePath;
 
-  String buy(int productId) => "/$productId/buy";
+  String buy(int productId, {bool withBasePath = true}) =>
+      "${withBasePath ? expressBasePath() : ''}/$productId/buy";
 
-  String download(int productId) =>
-      "${ApiEndPoints.expressBaseApiURL}/$basePath/$productId/download";
+  String feedback(int productId, {bool withBasePath = true}) =>
+      "${withBasePath ? expressBasePath() : ''}/$productId/feedback";
 
-  String search(String query) =>
-      "${ApiEndPoints.expressBaseApiURL}/$basePath/search?q=$query";
+  String download(int productId, {bool withBasePath = true}) =>
+      "${withBasePath ? expressBasePath() : ''}/$productId/download";
+
+  String search(String query) => "${expressBasePath()}/search?q=$query";
 }
