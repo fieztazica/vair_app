@@ -148,7 +148,8 @@ class ProductDetailScreenController extends FullLifeCycleController
       if (status.isSuccess) {
         String productId = Get.parameters["id"]!;
         var res = await productProvider.postProducts<Bought, dynamic>(
-            ApiEndPoints.productEndPoints.buy(int.parse(productId), withBasePath: false),
+            ApiEndPoints.productEndPoints
+                .buy(int.parse(productId), withBasePath: false),
             {},
             Bought.fromJson,
             headers: {"Authorization": "Bearer $token"});
