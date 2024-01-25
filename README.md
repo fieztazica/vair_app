@@ -28,7 +28,9 @@
 
 ## About The Project
 
-![Screen Shot](images/screenshot.png)
+<p align="center">
+    <img src="https://res.cloudinary.com/dpck8wjje/image/upload/f_auto,q_auto/avkytwwmwp7t1qwjcjwe" alt="Screen shot" height="720">
+</p>
 
 Vair App is a Flutter-based mobile application designed to provide Android users with a seamless experience for discovering and downloading various applications. It serves as the client interface for a comprehensive software distribution system, allowing users to explore, install, and manage apps effortlessly.
 
