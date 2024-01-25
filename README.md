@@ -85,7 +85,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](https://github.com/fiezt1492/vair_app/blob/main/LICENSE.md) for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/fiezt1492/vair_app/blob/main/LICENSE) for more information.
 
 ## Authors
 
