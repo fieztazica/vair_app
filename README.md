@@ -60,6 +60,11 @@ These dependencies work cohesively to create a robust and feature-rich applicati
 
 To start using Vair App, follow these steps:
 
+### Prerequisites
+
+- [Vair Strapi Server](https://github.com/fiezt1492/vair_strapi)
+- [Vair Express Server](https://github.com/fiezt1492/vair_express)
+
 ### Installation
 
 
