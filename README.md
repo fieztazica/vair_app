@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/fiezt1492/vair_app">
-    <img src="assets/img/Icon-96.png" alt="Logo" width="80" height="80">
+    <img src="assets/img/Icon-96.png" alt="Logo">
   </a>
 
   <h3 align="center">Vair App</h3>
